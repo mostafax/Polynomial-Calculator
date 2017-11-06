@@ -1,12 +1,7 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-<style>
-   
-    .hea{
-        font-family: 'Indie Flower', cursive;
-        }
- </style>
+
 </head>
 
 <body>
