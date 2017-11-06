@@ -1,7 +1,7 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 
 <body>
