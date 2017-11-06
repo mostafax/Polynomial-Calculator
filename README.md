@@ -3,11 +3,7 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 
 </head>
-<style>
-    .hea{
-        font-family: 'Indie Flower', cursive;
-        }
-</style>
+
 # DS-Project
 our First Data Structures Projects
 <h2 class = "hea" > Team </h2>
