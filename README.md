@@ -1,14 +1,14 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-
-</head>
 <style>
    
     .hea{
         font-family: 'Indie Flower', cursive;
         }
  </style>
+</head>
+
 <body>
 # DS-Project
 <h3>Data Structures Project</h3>
