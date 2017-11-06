@@ -7,7 +7,7 @@
 <body>
 # DS-Project
 <h3>Data Structures Project</h3>
-<h2 style="color:blue;" > Team </h2>
+<h2 class="olo" > Team </h2>
 <ul> <li>Mostafa Mohamed </li>
 <li>Mohamed Rashad </li>
 <li>Mohamed Gammal</li>
