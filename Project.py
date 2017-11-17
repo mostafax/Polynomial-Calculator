@@ -1,57 +1,61 @@
-# import the library
-from appJar import gui
+import tkinter as tk
+from functools import partial
 
-# handle button events
-def press(button):
-    if button == "Sum" or button =="Difference":
+#read file
+def fileworking(Fristequ,SecondEqu,Operation,Ruselt):
+ file= open("Math.txt","w")
+ file.write(Fristequ)
+ file.write("\t")
+ file.write(Operation)
+ file.write("\t")
+ file.write(SecondEqu)
+ file.write("\t")
+ file.write("=")
+ file.write(str(Ruselt))
+ file.write("\n")
+ file.close()
 
-        app.showSubWindow("Frist Equation")
-        Frist_Equation = app.getEntry("Equation one")
-        print("Frist_Equation=",Frist_Equation)
-        app.showSubWindow("Second Equation")
-        Second_Equation = app.getEntry("Equation two")
-        print("Second_Equation=", Second_Equation)
+def call_result_sum(label_result, n1, n2):
+    num1 = (n1.get())
+    num2 = (n2.get())
+    Generate="+"
+    result = int(num1) + int(num2)
+    fileworking(num1,num2,Generate,result)
+    label_result.config(text="Result is %d" % result)
+    return
+def call_result_Dif(label_result, n1, n2):
+    num1 = (n1.get())
+    num2 =(n2.get())
+    Generate="-"
+    result = int(num1) - int(num2)
+    fileworking(num1,num2,Generate,result)
 
-
-
-# create a GUI variable called app
-app = gui("Login Window", "600x600")
-app.setBg("white")
-app.setFont(18)
-
-# add & configure widgets - widgets get a name, to help referencing them later
-app.addLabel("title", "Welcome to Pynomail Caculator")
-app.setLabelBg("title", "yellow")
-app.setLabelFg("title", "purple")
-
-app.addLabel("Choice","Chosse the opperation")
-app.setLabelFg("Choice", "purple")
-# link the buttons to the function called press
-
-
-app.addButton("Sum", press)
-app.addButton("Difference", press)
-
-
-#pop window for the frist equation
-app.startSubWindow("Frist Equation")
-app.addLabel("l1", "add Frist Equation to this window")
-# set the button's name to match the SubWindow's name
-app.addEntry("Equation one")
-app.setFocus("Equation one")
-
-app.addNamedButton("Submit", "Frist Equation", app.hideSubWindow)
-app.stopSubWindow()
-#pop window for the Second equation
-app.startSubWindow("Second Equation")
-app.addLabel("l5", "add Second Equation to this window")
-app.addEntry("Equation two")
-app.setFocus("Equation two")
-# set the button's name to match the SubWindow's name
-
-app.addNamedButton("Submit", "Second Equation", app.hideSubWindow)
-app.stopSubWindow()
+    label_result.config(text="Result is %d" % result)
 
 
-# start the GUI/
-app.go()
+#Adjusting Layout
+App = tk.Tk()
+App.geometry('400x200+500+200')
+App.title('Polynomial calculator')
+
+#Varibles for Equations
+number1 = tk.StringVar()
+number2 = tk.StringVar()
+
+labelTitle = tk.Label(App, text="Polynomial calculator").grid(row=0, column=2)
+labelNum1 = tk.Label(App, text="Enter The Frist Equation").grid(row=1, column=0)
+labelNum2 = tk.Label(App, text="Enter The Second Equation").grid(row=2, column=0)
+labelResult = tk.Label(App)
+labelResult.grid(row=7, column=2)
+
+entryNum1 = tk.Entry(App, textvariable=number1).grid(row=1, column=2)
+entryNum2 = tk.Entry(App, textvariable=number2).grid(row=2, column=2)
+call_result_sum = partial(call_result_sum, labelResult, number1, number2)
+buttonSum = tk.Button(App, text="Sum", command=call_result_sum).grid(row=3, column=2)
+call_result_Dif = partial(call_result_Dif,labelResult, number1, number2)
+buttonDif = tk.Button(App,text="Substract", command=call_result_Dif).grid(row = 4,column = 2)
+
+
+#App Runnig
+App.mainloop()
+##################################################End of GUI PART#################
