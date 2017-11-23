@@ -1,3 +1,6 @@
+###DRAFT COOOOOOODE###
+
+
 import tkinter as tk
 import re
 from functools import partial
@@ -32,8 +35,6 @@ def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
     Check = False
 
 ##########End Of Working With File########
-
-###Start Of String Procissing###
 
 def ProsscingTheEqations(EquationToBePrccesed):
     MonoElements = list()
@@ -81,16 +82,27 @@ def call_result_sum(label_result, n1, n2):
     num2 = (n2.get())
     Generate = "+"
     result = ProsscingTheEqations(num1) + ProsscingTheEqations(num2)
+    #FileSearch(num1, num2, Generate, result)
 
+    #if Check == False:
+        #prevernting The Re-Writing
+     #   fileworking(num1, num2, Generate, result)
+#    label_result.config(text="Result is %d" % result)
     print(result)
 
 def call_result_Dif(label_result, n1, n2):
     global Check
     num1 = (n1.get())
     num2 = (n2.get())
-    Generate = "+"
-    result = ProsscingTheEqations(num1) + ProsscingTheEqations(num2)
-    print(result)
+    Generate = "-"
+    result = num1 - num2
+    FileSearch(num1, num2, Generate, result)
+    if Check ==False:
+        #prevernting The Re-Writing
+        fileworking(num1, num2, Generate, result)
+
+    label_result.config(text="Result is %d" % result)
+
 ##Ending of Caculation
 
 ######Starting The Gui Code#####
@@ -104,7 +116,6 @@ FristEquation = tk.StringVar()
 SecondEquation = tk.StringVar()
 
 labelTitle = tk.Label(App, text="Polynomial calculator").grid(row=0, column=2)
-LabeelInfo = tk.Label(App, text = "Enter of Format EX: x^2+2y+5").grid(row = 0 , column =0)
 labelNum1 = tk.Label(App, text="Enter The Frist Equation").grid(row=1, column=0)
 labelNum2 = tk.Label(App, text="Enter The Second Equation").grid(row=2, column=0)
 labelResult = tk.Label(App)
@@ -121,6 +132,7 @@ buttonDif = tk.Button(App,fg="red", text="Substract", command=call_result_Dif).g
 App.mainloop()
 ############################################End of GUI PART#################
 
+###Start Of String Procissing###
 
 
 
