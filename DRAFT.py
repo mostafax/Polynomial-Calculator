@@ -26,7 +26,9 @@ def FileSearch(Fristequ, SecondEqu, Operation, Ruselt):
 def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
     file = open("Math.txt", "a")  # a for append
     file.write(Fristequ)
+    file.write(" ")
     file.write(Operation)
+    file.write(" ")
     file.write(SecondEqu)
     file.write("=")
     file.write(str(Ruselt))
