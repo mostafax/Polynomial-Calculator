@@ -41,7 +41,7 @@ def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
 def ProsscingTheEqations(EquationToBePrccesed):
     MonoElements = list()
 
-    for Element in re.findall('([+-]?) *([\d]*)([a-zA-Z]?)(?:\^(\d+))?',EquationToBePrccesed): #USING REQUALR EXPRISONS
+    for Element in re.findall('([+-]?) *([\d]*)([a-zA-Z]?)(?:\^(\d+))? *([a-zA-Z]?)(?:\^(\d+))?',EquationToBePrccesed): #USING REQUALR EXPRISONS
         #findall(pattern, string, flags=0)
         #Return all non-overlapping matches of pattern in string, as a list of strings.
         #Explan The Exprsion (([+-]?) :Used to detect the + and - symbol )
@@ -51,10 +51,11 @@ def ProsscingTheEqations(EquationToBePrccesed):
         # ^ Matches the start of the string
         # * Causes the resulting RE to match 0 or more repetitions of the preceding RE, as many repetitions as are possible.
         # ?:   The first character after the '?' determines what the meaning and further syntax of the construct is.
-        coeff, Symbol, Power = None, None, None #Nulllll
+        coeff, Symbol, Power ,Symbol2, Power2 = None, None, None,None,None #Nulllll
+
         #print(Element)
         #If  String Not Empty
-        if Element != ('','','',''):
+        if Element != ('','','','','',''):
             #No Value of Coffinant
             if Element[1] == '':
                 coeff = 1
@@ -74,8 +75,20 @@ def ProsscingTheEqations(EquationToBePrccesed):
                 Power = int(Element[3])
                 Symbol = Element[2]
             #print ((coeff, Symbol, Power))
+            if Element[5] == '':
+                if Element[4] == '':
+                    # If Only A Number(No Symbol)
+                    Symbol2 = 'x'
+                    Power2 = 0
+                else:
+                    Symbol2 = Element[4]
+                    Power2 = 1
+            else:
+                Power2 = int(Element[5])
+                Symbol2 = Element[4]
+
             #Adding At The End of the List
-            MonoElements.append((coeff, Symbol, Power))
+            MonoElements.append((coeff, Symbol, Power,Symbol2,Power2))
 
     return MonoElements
 
@@ -152,3 +165,4 @@ buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli
 # App Runnig
 App.mainloop()
 ############################################End of GUI PART#################
+#
