@@ -78,7 +78,7 @@ def ProsscingTheEqations(EquationToBePrccesed):
             if Element[5] == '':
                 if Element[4] == '':
                     # If Only A Number(No Symbol)
-                    Symbol2 = 'x'
+                    Symbol2 = 'y'
                     Power2 = 0
                 else:
                     Symbol2 = Element[4]
@@ -88,7 +88,16 @@ def ProsscingTheEqations(EquationToBePrccesed):
                 Symbol2 = Element[4]
 
             #Adding At The End of the List
+            if Symbol>Symbol2:
+                temp2 = Power
+                Power = Power2
+                Power2 = temp2
+                temp = Symbol
+                Symbol =Symbol2
+                Symbol2 = temp
+
             MonoElements.append((coeff, Symbol, Power,Symbol2,Power2))
+
 
     return MonoElements
 
@@ -165,4 +174,4 @@ buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli
 # App Runnig
 App.mainloop()
 ############################################End of GUI PART#################
-#
+
