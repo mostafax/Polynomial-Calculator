@@ -105,10 +105,14 @@ def ProsscingTheEqations(EquationToBePrccesed):
 ##End Of String Procissing##
 
 def Removing_Symbols_From_String(OneString):
-    Chars_To_Remove = ['(', ')', ',', ']','[',' ']
+    Chars_To_Remove = ['(',',', ']', '[', ' ',')']
     # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
+    OneString = OneString.replace(")","+")
     OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
+    OneString = OneString[0:-1]
+    OneString = OneString.replace("+-", "-")
     return OneString
+
 
 
 ##Start The Caculation##
@@ -124,17 +128,23 @@ def call_result_sum(label_result, n1, n2):
      fileworking(num1, num2, Generate, result)
     print(result)
 
+
 def call_result_Dif(label_result, n1, n2):
     global Check
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "-"
-    result = ProsscingTheEqations(num1) + ProsscingTheEqations(num2)
-    FileSearch(num1, num2, Generate, result)
+    result = ProsscingTheEqations(num1)
+    result2 = ProsscingTheEqations(num2)
+#    res = Cacl_diff(result,result2)
+    FileSearch(num1, num2, Generate, res)
     if Check == False:
      # prevernting The Re-Writing
-     fileworking(num1, num2, Generate, result)
-    print(result)
+     fileworking(num1, num2, Generate, res)
+    a = str(res)
+    a = Removing_Symbols_From_String(a)
+    Label_result.config(text="Result is " + a)
+    print(res)
 
 def calc_multi (eq1,eq2):
     list1 = eq1
@@ -163,10 +173,10 @@ def call_result_Muli (Label_result,n1,n2):
     #print(result+result2)
     res = calc_multi(result,result2)
     #print(x)
-    FileSearch(num1, num2, Generate, result)
+    FileSearch(num1, num2, Generate, res)
     if Check == False:
      # prevernting The Re-Writing
-     fileworking(num1, num2, Generate, result)
+     fileworking(num1, num2, Generate, res)
     a= str(res)
     a= Removing_Symbols_From_String(a)
     Label_result.config(text="Result is " + a)
