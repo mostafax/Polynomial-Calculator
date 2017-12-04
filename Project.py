@@ -89,6 +89,7 @@ def ProsscingTheEqations(EquationToBePrccesed):
 
             #Adding At The End of the List
             if Symbol>Symbol2:
+                #Swaping Low
                 temp2 = Power
                 Power = Power2
                 Power2 = temp2
@@ -102,6 +103,12 @@ def ProsscingTheEqations(EquationToBePrccesed):
     return MonoElements
 
 ##End Of String Procissing##
+
+def Removing_Symbols_From_String(OneString):
+    Chars_To_Remove = ['(', ')', ',', ']','[',' ']
+    # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
+    OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
+    return OneString
 
 
 ##Start The Caculation##
@@ -129,18 +136,41 @@ def call_result_Dif(label_result, n1, n2):
      fileworking(num1, num2, Generate, result)
     print(result)
 
+def calc_multi (eq1,eq2):
+    list1 = eq1
+    list2 = eq2
+    size1 = len(list1)
+    size2 = len(list2)
+    result = list()
+    for i in range(0,size1):
+        for j in range(0,size2):
+            a = list1[i][0] * list2[j][0]
+            b = list1[i][1]
+            c = list1[i][2] + list2[j][2]
+            d = list1[i][3]
+            e = list1[i][4] + list2[j][4]
+            result.append((a, b, c, d, e))
+    return result
+
+
 def call_result_Muli (Label_result,n1,n2):
     global Check
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "*"
-    result = ProsscingTheEqations(num1) + ProsscingTheEqations(num2)
+    result = ProsscingTheEqations(num1)
+    result2 = ProsscingTheEqations(num2)
+    #print(result+result2)
+    res = calc_multi(result,result2)
+    #print(x)
     FileSearch(num1, num2, Generate, result)
     if Check == False:
      # prevernting The Re-Writing
      fileworking(num1, num2, Generate, result)
-    print(result)
-
+    a= str(res)
+    a= Removing_Symbols_From_String(a)
+    Label_result.config(text="Result is " + a)
+    print(res)
 
 
 ##Ending of Caculation
@@ -174,4 +204,3 @@ buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli
 # App Runnig
 App.mainloop()
 ############################################End of GUI PART#################
-
