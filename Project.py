@@ -111,22 +111,122 @@ def Removing_Symbols_From_String(OneString):
     OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
     OneString = OneString[0:-1]
     OneString = OneString.replace("+-", "-")
+    OneString = OneString.replace("'", "")
+
     return OneString
 
 
 
 ##Start The Caculation##
+
+def add(eq1, eq2):
+    #list1 = eq1
+    #list2 = eq2
+    size1 = len(eq1)
+    size2 = len(eq2)
+    tmb=list()
+    result=list()
+
+    for i in range(0, size1):
+        for j in range(0, size2):
+            if eq1[i][1] == eq2[j][1] and eq1[i][2] == eq2[j][2] and eq1[i][3] == eq2[j][3] and eq1[i][
+                4] == eq2[j][4]:
+                tmb.append(eq1[i])
+                tmb[0]=eq1[i][0] + eq2[j][0]
+                print(" gimmy")
+                result.append(tmb)
+                eq2.remove(eq2[j])
+
+
+            else:
+               result.append(eq1[i])
+
+    for i in range(len(eq2)):
+        result.append(eq2[i])
+
+    return (result)
 def call_result_sum(label_result, n1, n2):
     global Check
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "+"
-    result = ProsscingTheEqations(num1) + ProsscingTheEqations(num2)
+    result = ProsscingTheEqations(num1)
+    result2 = ProsscingTheEqations(num2)
+    res =  add(result,result2)
     FileSearch(num1, num2, Generate, result)
     if Check == False:
      # prevernting The Re-Writing
      fileworking(num1, num2, Generate, result)
     print(result)
+    a = str(res)
+    a = Removing_Symbols_From_String(a)
+    label_result.config(text="Result is " + a)
+    print(res)
+
+
+def calc_diff(MonoElements,MonoElements2):
+ result=list()
+ last_result=list()
+ seet=set()
+ MonoElements_size=len(MonoElements)#get length of first list
+ MonoElements2_size=len(MonoElements2)#get length of second list
+
+ for x in range(0, MonoElements2_size):
+  c = 0
+  for z in range(0, MonoElements_size):
+
+    if MonoElements[z][1] == MonoElements2[x][1] and MonoElements[z][2] == MonoElements2[x][2] and \
+                     MonoElements[z][3] == MonoElements2[x][3] and MonoElements[z][4] == MonoElements2[x][4]:
+         result.append(((int(MonoElements[z][0]) - int(MonoElements2[x][0])), MonoElements[z][1], MonoElements[z][2],
+                        MonoElements[z][3], MonoElements[z][4]))
+         break
+    else:
+         c+=1
+         #print(c)
+         #print(result)
+    if c==MonoElements_size-1:
+       result.append((MonoElements2[x][0], MonoElements2[x][1], MonoElements2[x][2],
+                   MonoElements2[x][3], MonoElements2[x][4]))
+       #result.append((MonoElements[z][0], MonoElements[z][1], MonoElements[z][2],
+         #          MonoElements[z][3], MonoElements[z][4]))
+
+#print(result)
+ for z in range(0, MonoElements_size):
+  c = 0
+  for x in range(0, MonoElements2_size):
+    if MonoElements[z][1] == MonoElements2[x][1] and MonoElements[z][2] == MonoElements2[x][2] and \
+                     MonoElements[z][3] == MonoElements2[x][3] and MonoElements[z][4] == MonoElements2[x][4]:
+         result.append(((int(MonoElements[z][0]) - int(MonoElements2[x][0])), MonoElements[z][1], MonoElements[z][2],
+                        MonoElements[z][3], MonoElements[z][4]))
+         break
+    else:
+         c+=1
+         #print(MonoElements[z][0])
+         #print(result)
+    if c==MonoElements2_size-1:
+       #result.append((MonoElements2[x][0], MonoElements2[x][1], MonoElements2[x][2],
+        #           MonoElements2[x][3], MonoElements2[x][4]))
+       result.append((MonoElements[z][0], MonoElements[z][1], MonoElements[z][2],
+                   MonoElements[z][3], MonoElements[z][4]))
+ length = len(result)
+ for x in range(0,length):  # from x because we(-)to x and to length-x because the length will decrease by the the elements we (-) it
+           coafficient = result[x][0]
+           symbol=result[x][1]
+           power = result[x][2]
+           symbol2 = result[x][3]
+           power2 = result[x][4]
+           if coafficient == 0:
+             #  coafficient = 0
+               symbol = "0"
+               power = "0"
+               symbol2 = "0"
+               power2 = "0"
+           last_result.append((coafficient, symbol, power, symbol2, power2))
+           t=tuple(last_result)
+           sett=set(t)
+
+ #print(sett)
+ return sorted(sett,reverse=True)
 
 
 def call_result_Dif(label_result, n1, n2):
@@ -136,31 +236,81 @@ def call_result_Dif(label_result, n1, n2):
     Generate = "-"
     result = ProsscingTheEqations(num1)
     result2 = ProsscingTheEqations(num2)
-#    res = Cacl_diff(result,result2)
+    res = calc_diff(result,result2)
     FileSearch(num1, num2, Generate, res)
     if Check == False:
      # prevernting The Re-Writing
      fileworking(num1, num2, Generate, res)
     a = str(res)
     a = Removing_Symbols_From_String(a)
-    Label_result.config(text="Result is " + a)
+    label_result.config(text="Result is " + a)
     print(res)
 
-def calc_multi (eq1,eq2):
+
+def calc_multi(eq1, eq2):
     list1 = eq1
     list2 = eq2
     size1 = len(list1)
     size2 = len(list2)
     result = list()
-    for i in range(0,size1):
-        for j in range(0,size2):
-            a = list1[i][0] * list2[j][0]
-            b = list1[i][1]
-            c = list1[i][2] + list2[j][2]
-            d = list1[i][3]
-            e = list1[i][4] + list2[j][4]
+    for i in range(0, size1):
+        for j in range(0, size2):
+            if (list1[i][0] == 0 and list2[j][0] == 0):
+                a = 0
+                b = 0
+                c = 0
+                d = 0
+                e = 0
+            else:
+                a = list1[i][0] * list2[j][0]
+                if (list1[i][1] == list2[j][1]):
+                    b = list1[i][1]
+                elif (list1[i][1] == '1' and list2[j][1] != '1'):
+                    b = list2[j][1]
+                elif (list1[i][1] != '1' and list2[j][1] == '1'):
+                    b = list1[i][1]
+
+                c = list1[i][2] + list2[j][2]
+                if (list1[i][3] == list2[j][3]):
+                    d = list1[i][3]
+                elif (list1[i][3] == '1' and list2[j][3] != '1'):
+                    d = list2[j][3]
+                elif (list1[i][3] != '1' and list2[j][3] == '1'):
+                    d = list1[i][3]
+
+                e = list1[i][4] + list2[j][4]
             result.append((a, b, c, d, e))
-    return result
+
+    final_result = list()
+
+    for i in range(0, len(result)):
+        sum1 = 0
+        sum2 = 0
+        temp = 0
+        for j in range(i + 1, len(result)):
+
+            if (i != j):
+                if result[i][2] == result[j][2] and result[i][4] == result[j][4]:
+                    sum1 += int(result[i][0]) + int(result[j][0])
+
+                    result[j] = (0, '1', 0, '1', 0)
+                    temp = temp + 1
+
+
+                else:
+                    sum2 = result[i][0]
+        if (sum1 > sum2):
+            for k in range(0, temp - 1):
+                sum1 = sum1 - result[i][0]
+            if (sum1 != 0 and result[i][1] != '1' and result[i][2] != 0 and result[i][3] != '1' and result[i][4] != 0):
+                final_result.append((sum1, result[i][1], result[i][2], result[i][3], result[i][4]))
+        else:
+            if (sum2 != 0 and result[i][1] != '1' and result[i][2] != 0 and result[i][3] != '1' and result[i][4] != 0):
+                final_result.append((sum2, result[i][1], result[i][2], result[i][3], result[i][4]))
+
+    print(final_result)
+
+    return final_result
 
 
 def call_result_Muli (Label_result,n1,n2):
