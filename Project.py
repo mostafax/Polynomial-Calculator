@@ -112,39 +112,67 @@ def Removing_Symbols_From_String(OneString):
     OneString = OneString[0:-1]
     OneString = OneString.replace("+-", "-")
     OneString = OneString.replace("'", "")
+    '''''
+    f = len(OneString)
+    for x in  range(0,f):
+     if x <= f+4:
+        if OneString[x]=='0':
+            if OneString[x+1] >= 'A' and OneString[x+1]<='z':
+                if OneString[x+2]==0:
+                    if OneString[x + 3] >='A' and OneString[x + 3] < 'z':
+                        if OneString[x+4]==0:
+                            OneString = OneString.replace(OneString[x:x+4],"")
 
+'''
     return OneString
-
 
 
 ##Start The Caculation##
 
 def add(eq1, eq2):
     #list1 = eq1
-    #list2 = eq2
+    list2 = eq2
     size1 = len(eq1)
     size2 = len(eq2)
-    tmb=list()
+    removed=list()
+    removed2=list()
     result=list()
 
     for i in range(0, size1):
         for j in range(0, size2):
-            if eq1[i][1] == eq2[j][1] and eq1[i][2] == eq2[j][2] and eq1[i][3] == eq2[j][3] and eq1[i][
+            if eq1[i][1] == eq2[j][1] and eq1[i][2] == eq2[j][2] and eq1[i][3] == eq2[j][3 ] and eq1[i][
                 4] == eq2[j][4]:
-                tmb.append(eq1[i])
-                tmb[0]=eq1[i][0] + eq2[j][0]
-                print(" gimmy")
-                result.append(tmb)
-                eq2.remove(eq2[j])
+                x=(eq1[i][0] + eq2[j][0])
+                result.append((x,eq1[i][1],eq1[i][2],eq1[i][3],eq1[i][4]))
+                removed.append(eq2[j])
+                removed2.append(eq1[i])
 
-
-            else:
-               result.append(eq1[i])
 
     for i in range(len(eq2)):
-        result.append(eq2[i])
+        check=True
+        for j in range(len(removed)):
+            if removed[j]== eq2[i]:
+                check=False
+        if (check==True):
+             result.append(eq2[i])
+
+
+    for i in range(len(eq1)):
+        check=True
+        for j in range(len(removed2)):
+            if removed2[j]== eq1[i]:
+                check=False
+        if (check==True):
+             result.append(eq1[i])
+
+
+    for j in range(len(result)):
+        if result[j][0]==0:
+            result[j]=[0,0,0,0,0]
+
 
     return (result)
+
 def call_result_sum(label_result, n1, n2):
     global Check
     num1 = (n1.get())
@@ -153,6 +181,7 @@ def call_result_sum(label_result, n1, n2):
     result = ProsscingTheEqations(num1)
     result2 = ProsscingTheEqations(num2)
     res =  add(result,result2)
+    print(res)
     FileSearch(num1, num2, Generate, result)
     if Check == False:
      # prevernting The Re-Writing
@@ -184,7 +213,7 @@ def calc_diff(MonoElements,MonoElements2):
          c+=1
          #print(c)
          #print(result)
-    if c==MonoElements_size-1:
+    if (c==MonoElements_size-1 and MonoElements_size!=1)or(c==MonoElements_size and MonoElements_size ==1):
        result.append((MonoElements2[x][0], MonoElements2[x][1], MonoElements2[x][2],
                    MonoElements2[x][3], MonoElements2[x][4]))
        #result.append((MonoElements[z][0], MonoElements[z][1], MonoElements[z][2],
@@ -203,7 +232,7 @@ def calc_diff(MonoElements,MonoElements2):
          c+=1
          #print(MonoElements[z][0])
          #print(result)
-    if c==MonoElements2_size-1:
+    if (c==MonoElements2_size-1 and MonoElements2_size!=1)or(c==MonoElements2_size and MonoElements2_size == 1):
        #result.append((MonoElements2[x][0], MonoElements2[x][1], MonoElements2[x][2],
         #           MonoElements2[x][3], MonoElements2[x][4]))
        result.append((MonoElements[z][0], MonoElements[z][1], MonoElements[z][2],
@@ -253,6 +282,7 @@ def calc_multi(eq1, eq2):
     size1 = len(list1)
     size2 = len(list2)
     result = list()
+    check = False
     for i in range(0, size1):
         for j in range(0, size2):
             if (list1[i][0] == 0 and list2[j][0] == 0):
@@ -266,6 +296,7 @@ def calc_multi(eq1, eq2):
                 if (list1[i][1] == list2[j][1]):
                     b = list1[i][1]
                 elif (list1[i][1] == '1' and list2[j][1] != '1'):
+
                     b = list2[j][1]
                 elif (list1[i][1] != '1' and list2[j][1] == '1'):
                     b = list1[i][1]
@@ -277,38 +308,45 @@ def calc_multi(eq1, eq2):
                     d = list2[j][3]
                 elif (list1[i][3] != '1' and list2[j][3] == '1'):
                     d = list1[i][3]
-
-                e = list1[i][4] + list2[j][4]
+                elif (list1[i][3] != '1' and list2[j][3] != '1' and list1[i][3] != list2[j][3]):
+                    s = list1[i][1]
+                    r = list2[j][3]
+                    c = list1[i][4]
+                    check = True
+                    e = list2[j][4]
+                    if (s < r):
+                        b = s
+                        d = r
+                if (check != True):
+                    e = list1[i][4] + list2[j][4]
             result.append((a, b, c, d, e))
 
     final_result = list()
 
     for i in range(0, len(result)):
         sum1 = 0
-        sum2 = 0
         temp = 0
-        for j in range(i + 1, len(result)):
+        found = False
+        for j in range(0, len(result)):
 
             if (i != j):
                 if result[i][2] == result[j][2] and result[i][4] == result[j][4]:
                     sum1 += int(result[i][0]) + int(result[j][0])
-
-                    result[j] = (0, '1', 0, '1', 0)
+                    found = True
+                    result[j] = ('2', '2', '2', '2', '2')
                     temp = temp + 1
-
-
-                else:
-                    sum2 = result[i][0]
-        if (sum1 > sum2):
+        if (found == True):
             for k in range(0, temp - 1):
-                sum1 = sum1 - result[i][0]
-            if (sum1 != 0 and result[i][1] != '1' and result[i][2] != 0 and result[i][3] != '1' and result[i][4] != 0):
-                final_result.append((sum1, result[i][1], result[i][2], result[i][3], result[i][4]))
+                sum1 = sum1 - int(result[i][0])
+            if (sum1 != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and result[i][
+                4] != '2'):
+                if (sum1 != 0):
+                    final_result.append((sum1, result[i][1], result[i][2], result[i][3], result[i][4]))
         else:
-            if (sum2 != 0 and result[i][1] != '1' and result[i][2] != 0 and result[i][3] != '1' and result[i][4] != 0):
-                final_result.append((sum2, result[i][1], result[i][2], result[i][3], result[i][4]))
-
-    print(final_result)
+            if (result[i][0] != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and
+                        result[i][4] != '2'):
+                if (result[i][0] != 0):
+                    final_result.append((result[i][0], result[i][1], result[i][2], result[i][3], result[i][4]))
 
     return final_result
 
