@@ -629,7 +629,7 @@ def calc_multi(eq1, eq2):
                     result.append((a, b, c, d, e))
     final = contact(result)
     string_final = display(final)
-    return string_final
+    return final
 
 def call_result_Muli (Label_result,n1,n2):
     global Check
