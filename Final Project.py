@@ -12,24 +12,12 @@ def FileSearch(Fristequ, SecondEqu, Operation, Ruselt):
     x = file.readlines()
     if Holder in x:
         Check = True
-        searchingfile = open('Math.txt', 'r')
         print("yeah i found your word in file.")
 
     else:
         print("too bad there is  nothing.")
         Check=False
     #file.Close()
-
-def HatMenElFIle(Fristequ, SecondEqu, Operation):
-    global Check
-    Splitter = str(Fristequ)+" " + str(Operation)+" " + str(SecondEqu)+" "
-    if Check==True:
-        searchingfile = open('Math.txt', 'r')
-        print("yeah i found your word in file.")
-        for Looking in searchingfile:
-             sp = Looking.split('=')
-             if Splitter ==sp[0]:
-                 return sp[1]
 
 
 def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
@@ -49,163 +37,397 @@ def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
 ##########End Of Working With File########
 
 ###Start Of String Procissing###
+
+
+class term:
+    coff = 0
+
+    sub_term = ""
+
+    power = list()
+
+    symbol = ""
+
+    def __init__(self):
+
+        self.coff = 0
+
+        self.sub_term = " "
+
+        self.symbol = ""
+
+        self.power = []
+
+    def get_coff(self):
+
+        if self.sub_term[0] != '-':
+            if ord(self.sub_term[0]) >= 65 and ord(self.sub_term[0]) <= 90 or ord(self.sub_term[0]) >= 97 and ord(
+                    self.sub_term[0]) <= 122:
+                self.coff = 1
+                return self.coff
+
+        if self.sub_term[0] == '-':
+
+            for i in range(1, len(self.sub_term)):
+                if ord(self.sub_term[1]) >= 65 and ord(self.sub_term[1]) <= 90 or ord(
+                        self.sub_term[1]) >= 97 and ord(self.sub_term[1]) <= 122:
+                    self.coff = -1
+                    return self.coff
+                if ord(self.sub_term[i]) >= 65 and ord(self.sub_term[i]) <= 90 or ord(
+                        self.sub_term[i]) >= 97 and ord(self.sub_term[i]) <= 122:
+                    break
+                else:
+
+                    self.coff *= 10
+
+                    self.coff += ord(self.sub_term[i]) - 48
+
+            self.coff *= -1
+            return self.coff
+
+
+        else:
+
+            for i in range(len(self.sub_term)):
+
+                if ord(self.sub_term[i]) >= 65 and ord(self.sub_term[i]) <= 90 or ord(
+                        self.sub_term[i]) >= 97 and ord(self.sub_term[i]) <= 122:
+
+                    break
+
+                else:
+
+                    self.coff *= 10
+
+                    self.coff += ord(self.sub_term[i]) - 48
+            return self.coff
+
+    def get_symbol(self):
+
+        for i in range(len(self.sub_term)):
+
+            if ord(self.sub_term[i]) >= 65 and ord(self.sub_term[i]) <= 90 or ord(self.sub_term[i]) >= 97 and ord(
+                    self.sub_term[i]) <= 122:
+                self.symbol += self.sub_term[i]
+
+        self.symbol += "1"
+        self.symbol += "1"
+
+        return self.symbol
+
+    def get_power(self):
+
+        pow_of_var1 = 0
+
+        pow_of_var2 = 0
+
+        flag1 = False
+
+        flag2 = False
+
+        test = False
+
+        count = 0
+
+        for i in range(len(self.sub_term)):
+
+            if ord(self.sub_term[i]) >= 65 and ord(self.sub_term[i]) <= 90 or ord(self.sub_term[i]) >= 97 and ord(
+                    self.sub_term[i]) <= 122:
+                count += 1
+
+            if self.sub_term[i] == '^':
+
+                if count == 2:
+                    test = True
+
+                flag = False
+
+                flag1 = True
+
+                for j in range(i + 1, len(self.sub_term)):
+
+                    if self.sub_term[j] == '^':
+
+                        flag2 = True
+
+                        for k in range(j + 1, len(self.sub_term)):
+                            pow_of_var2 *= 10
+
+                            pow_of_var2 += ord(self.sub_term[k]) - 48
+
+                        flag = True
+
+                        break
+
+                    else:
+
+                        if not ord(self.sub_term[j]) >= 65 and ord(self.sub_term[j]) <= 90 or not ord(
+                                self.sub_term[j]) >= 97 and ord(self.sub_term[j]) <= 122:
+                            pow_of_var1 *= 10
+
+                            pow_of_var1 += ord(self.sub_term[j]) - 48
+
+                if (flag is True):
+                    break
+
+        if (flag1 is False) and (flag2 is False):
+
+            if count == 1:
+
+                pow_of_var1 = 1
+
+            elif count == 2:
+
+                pow_of_var2 = 1
+
+                pow_of_var1 = 1
+
+            else:
+
+                pow_of_var2 = 0
+
+                pow_of_var1 = 0
+
+        if (flag1 is True) and (flag2 is False):
+
+            if count == 2:
+
+                pow_of_var2 = 1
+
+            else:
+
+                pow_of_var2 = 0
+
+        if (test is True):
+            self.power.append(pow_of_var2)
+
+            self.power.append(pow_of_var1)
+
+            return self.power
+
+        self.power.append(pow_of_var1)
+
+        self.power.append(pow_of_var2)
+
+        return self.power
+
+
+def caller(z):
+    a = term()
+
+    a.sub_term = z
+
+    a.coff = a.get_coff()
+
+    a.symbol = a.get_symbol()
+
+    a.power = a.get_power()
+
+    result = ""
+
+    result = ((a.coff, a.symbol[0], a.power[0], a.symbol[1], a.power[1]))
+
+    return result
+
+
+def find_term(x):
+    y = list()
+    y = x
+    for i in range(len(x)):
+
+        if x[i] == "-" and x[0][0] != "-":
+            y = x.replace('-', '+-')
+
+    return y
+
+
+def split_term(x):
+    x2 = list()
+
+    x2 = [0]
+
+    x2 = x.split("+")
+
+    return x2
+
+
+def arragment_term(x):
+    y = list()
+
+    coff = 0
+
+    pow1 = 0
+
+    pow2 = 0
+
+    var = ''
+
+    var2 = ''
+
+    for i in range(0, len(x)):
+
+        coff = x[i][0]
+
+        pow1 = x[i][2]
+
+        pow2 = x[i][4]
+
+        var = x[i][1]
+
+        var2 = x[i][3]
+
+        if ord(var) > ord(var2):
+
+            temp1 = var
+
+            var = var2
+
+            var2 = temp1
+
+            temp2 = pow1
+
+            pow1 = pow2
+
+            pow2 = temp2
+
+            y.append((coff, var, pow1, var2, pow2))
+
+        else:
+
+            y.append(x[i])
+
+    return y
+
+
+def make_term(y):
+    terms_of_equ = list()
+
+    for i in range(len(y)):
+        terms_of_equ.append((caller(y[i])))
+
+    return terms_of_equ
+
+def ProsscingTheEqations(EquationToBePrccesed):
+
+  equ = EquationToBePrccesed
+
+  equ1 = find_term(equ)
+
+  equ_after_split = split_term(equ1)
+
+  terms_equ = make_term(equ_after_split)
+
+  equ_after_arragment = arragment_term(terms_equ)
+
+  return equ_after_arragment
+
+
+##End Of String Procissing##
 def contact(eq):
+
     final_result = list()
+
     result = eq
+
     for i in range(0, len(result)):
+
         sum1 = 0
+
         temp = 0
+
         found = False
+
         for j in range(0, len(result)):
 
+
+
             if (i != j):
+
                 if result[i][2] == result[j][2] and result[i][4] == result[j][4]:
+
                     sum1 += int(result[i][0]) + int(result[j][0])
+
                     found = True
+
                     result[j] = ('2', '2', '2', '2', '2')
+
                     temp = temp + 1
+
         if (found == True):
+
             for k in range(0, temp - 1):
+
                 sum1 = sum1 - int(result[i][0])
+
             if (sum1 != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and result[i][
+
                 4] != '2'):
+
                 if (sum1 != 0):
+
                     final_result.append((sum1, result[i][1], result[i][2], result[i][3], result[i][4]))
+
         else:
+
             if (result[i][0] != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and
+
                         result[i][4] != '2'):
+
                 if (result[i][0] != 0):
+
                     final_result.append((result[i][0], result[i][1], result[i][2], result[i][3], result[i][4]))
+
+
 
     return final_result
 
-def ProsscingTheEqations(EquationToBePrccesed):
-    MonoElements = list()
 
-    for Element in re.findall('([+-]?) *([\d]*)([a-zA-Z]?)(?:\^(\d+))? *([a-zA-Z]?)(?:\^(\d+))?',EquationToBePrccesed): #USING REQUALR EXPRISONS
-        #findall(pattern, string, flags=0)
-        #Return all non-overlapping matches of pattern in string, as a list of strings.
-        #Explan The Exprsion (([+-]?) :Used to detect the + and - symbol )
-        # \d When the UNICODE flag is not specified
-        # ? Causes the resulting RE to match 0 or 1 repetitions of the preceding RE
-        # [] Range of ASCII Code
-        # ^ Matches the start of the string
-        # * Causes the resulting RE to match 0 or more repetitions of the preceding RE, as many repetitions as are possible.
-        # ?:   The first character after the '?' determines what the meaning and further syntax of the construct is.
-        coeff, Symbol, Power ,Symbol2, Power2 = None, None, None,None,None #Nulllll
+#final display
+def display(eq):
+    final = eq
+    string_final = " "
+    for i in range(0, len(final)):
 
-        #print(Element)
-        #If  String Not Empty
-        if Element != ('','','','','',''):
-            #No Value of Coffinant
-            if Element[1] == '':
-                coeff = 1
+        if (final[i][0] != 0):
 
-            else:
-                coeff = int(Element[1])
-            if Element[0] == '-': coeff = - coeff
-            if Element[3] == '':
-                if Element[2] == '':
-                    #If Only A Number(No Symbol)
-                    Symbol = 'x'
-                    Power = 0
+            if (final[i][0] > 0 and i != 0):
+                string_final += "+"
+            string_final += str(final[i][0])
+            if (final[i][1] != '1'):
+                string_final += str(final[i][1])
+            if (final[i][2] != 0):
+                if (final[i][2] == 1):
+                    string_final += str(final[i][2])
                 else:
-                    Symbol = Element[2]
-                    Power = 1
-            else:
-                Power = int(Element[3])
-                Symbol = Element[2]
-            #print ((coeff, Symbol, Power))
-            if Element[5] == '':
-                if Element[4] == '':
-                    # If Only A Number(No Symbol)
-                    Symbol2 = 'y'
-                    Power2 = 0
-                else:
-                    Symbol2 = Element[4]
-                    Power2 = 1
-            else:
-                Power2 = int(Element[5])
-                Symbol2 = Element[4]
-
-            #Adding At The End of the List
-            if Symbol>Symbol2:
-                #Swaping Low
-                temp2 = Power
-                Power = Power2
-                Power2 = temp2
-                temp = Symbol
-                Symbol =Symbol2
-                Symbol2 = temp
-
-            MonoElements.append((coeff, Symbol, Power,Symbol2,Power2))
-
-
-    return MonoElements
-
-##End Of String Procissing##
-def Removing_Symbols_From_String(OneString):
-
-    Chars_To_Remove = ['(',',', ']', '[', ' ',')']
-    OneString = OneString.replace("+", "")
-    # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
-    OneString = OneString.replace(")","+")
-    OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
-    OneString = OneString[0:-1]
-    OneString = OneString.replace("+-", "-")
-    OneString = OneString.replace("'", "")
-    print(OneString)
-    g = list(OneString)
-    l = list()
-    f = len(OneString)
-    for x in range(0,f):
-     #if f+2>=x:
-        if OneString[x]=='0':
-            if (g[x-1]>=str('A')and g[x-1]<=str('z')):
-                f-= 1
-              #  print(g[x-1])
-                g[x-1] = ''
-                g[x]=''
-
-    OneString ="".join(g)
-
-
-    '''''
-    f = len(OneString)
-    for x in  range(0,f):
-     if x <= f+4:
-        if OneString[x]=='0':
-            if OneString[x+1] >= 'A' and OneString[x+1]<='z':
-                if OneString[x+2]==0:
-                    if OneString[x + 3] >='A' and OneString[x + 3] < 'z':
-                        if OneString[x+4]==0:
-                            OneString = OneString.replace(OneString[x:x+4],"")
-
-'''
-    return OneString
-
+                    string_final += "^"
+                    string_final += str(final[i][2])
+            if (final[i][3] != '1'):
+                string_final += str(final[i][3])
+            if (final[i][4] != 0):
+                if (final[i][4] != 1):
+                    string_final += "^"
+                    string_final += str(final[i][4])
+        else:
+            string_final="0"
+    return string_final
 
 ##Start The Caculation##
 
 def add(eq1, eq2):
-    #list1 = eq1
-    eq1=contact(eq1)
-    eq2=contact(eq2)
-    list2 = eq2
-    size1 = len(eq1)
-    size2 = len(eq2)
     removed=list()
     removed2=list()
     result=list()
+    eq1=contact(eq1)
+    eq2=contact(eq2)
+    for i in range(len(eq1)):
+        for j in range(len(eq2)):
+            if eq1[i][1] == eq2[j][1] and eq1[i][2] == eq2[j][2] and eq1[i][3] == eq2[j][3 ] and eq1[i][4] == eq2[j][4]:
 
-    for i in range(0, size1):
-        for j in range(0, size2):
-            if eq1[i][1] == eq2[j][1] and eq1[i][2] == eq2[j][2] and eq1[i][3] == eq2[j][3] and eq1[i][
-                4] == eq2[j][4]:
                 x=(eq1[i][0] + eq2[j][0])
                 result.append((x,eq1[i][1],eq1[i][2],eq1[i][3],eq1[i][4]))
                 removed.append(eq2[j])
                 removed2.append(eq1[i])
+
 
 
     for i in range(len(eq2)):
@@ -227,8 +449,8 @@ def add(eq1, eq2):
 
 
     for j in range(len(result)):
-        if result[j][0]==0:
-            result[j]=[0,'','','','']
+       if result[j][0]==0:
+           result[j]=[0,0,0,0,0]
 
 
     return (result)
@@ -241,26 +463,13 @@ def call_result_sum(label_result, n1, n2):
     result = ProsscingTheEqations(num1)
     result2 = ProsscingTheEqations(num2)
     res =  add(result,result2)
-    print(res)
     FileSearch(num1, num2, Generate, result)
     if Check == False:
      # prevernting The Re-Writing
-      fileworking(num1, num2, Generate, result)
-      a = str(res)
-      a = Removing_Symbols_From_String(a)
-      label_result.config(text="Result is " + a)
-
-    else:
-
-         a = HatMenElFIle(num1, num2, Generate)
-         a = str(a)
-         a = Removing_Symbols_From_String(a)
-         label_result.config(text="Result is " + a)
-         print(a+"LOL")
-
-
-
-
+     fileworking(num1, num2, Generate, result)
+    a = res
+    a = display(a)
+    label_result.config(text="Result is " + a)
 
 
 def calc_diff(MonoElements,MonoElements2):
@@ -332,6 +541,7 @@ def calc_diff(MonoElements,MonoElements2):
  #print(sett)
  return sorted(sett,reverse=True)
 
+
 def call_result_Dif(label_result, n1, n2):
     global Check
     num1 = (n1.get())
@@ -346,10 +556,9 @@ def call_result_Dif(label_result, n1, n2):
     if Check == False:
      # prevernting The Re-Writing
      fileworking(num1, num2, Generate, res)
-    a = str(res)
-    a = Removing_Symbols_From_String(a)
+    a = res
+    a = display(a)
     label_result.config(text="Result is " + a)
-    print(res)
 
 
 def calc_multi(eq1, eq2):
@@ -358,20 +567,15 @@ def calc_multi(eq1, eq2):
     size1 = len(list1)
     size2 = len(list2)
     result = list()
-
+    check = False
     for i in range(0, size1):
-
         for j in range(0, size2):
-            check = False
-            check2 = False
             if (list1[i][0] == 0 and list2[j][0] == 0):
                 a = 0
                 b = 0
                 c = 0
                 d = 0
                 e = 0
-                m = 0
-
             else:
                 a = list1[i][0] * list2[j][0]
                 if (list1[i][1] == list2[j][1]):
@@ -390,36 +594,46 @@ def calc_multi(eq1, eq2):
                 elif (list1[i][3] != '1' and list2[j][3] == '1'):
                     d = list1[i][3]
                 elif (list1[i][3] != '1' and list2[j][3] != '1' and list1[i][3] != list2[j][3]):
-                    if(list2[j][1] != '1'):
-                        check2 = True
-
-                    s = list1[i][3]
+                    s = list1[i][1]
                     r = list2[j][3]
-                    m = list1[i][4] + list2[j][2]
+                    c = list1[i][4]
                     check = True
-                    c = list2[j][4] + list1[i][2]
+                    e = list2[j][4]
                     if (s < r):
                         b = s
                         d = r
-                    else:
-                        b = r
-                        d = s
+                if (check != True):
+                    e = list1[i][4] + list2[j][4]
+            result.append((a, b, c, d, e))
 
-                e = list1[i][4] + list2[j][4]
+    final_result = list()
 
+    for i in range(0, len(result)):
+        sum1 = 0
+        temp = 0
+        found = False
+        for j in range(0, len(result)):
 
+            if (i != j):
+                if result[i][2] == result[j][2] and result[i][4] == result[j][4]:
+                    sum1 += int(result[i][0]) + int(result[j][0])
+                    found = True
+                    result[j] = ('2', '2', '2', '2', '2')
+                    temp = temp + 1
+        if (found == True):
+            for k in range(0, temp - 1):
+                sum1 = sum1 - int(result[i][0])
+            if (sum1 != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and result[i][
+                4] != '2'):
+                if (sum1 != 0):
+                    final_result.append((sum1, result[i][1], result[i][2], result[i][3], result[i][4]))
+        else:
+            if (result[i][0] != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and
+                        result[i][4] != '2'):
+                if (result[i][0] != 0):
+                    final_result.append((result[i][0], result[i][1], result[i][2], result[i][3], result[i][4]))
 
-            if(a != 0):
-                if (check == True):
-                    if(check2 == True):
-                        result.append((a, b, m, d, c))
-                    else:
-                        result.append((a, b, c, d, m))
-                else:
-
-                    result.append((a, b, c, d, e))
-
-    return contact(result)
+    return final_result
 
 
 def call_result_Muli (Label_result,n1,n2):
@@ -436,10 +650,9 @@ def call_result_Muli (Label_result,n1,n2):
     if Check == False:
      # prevernting The Re-Writing
      fileworking(num1, num2, Generate, res)
-    a= str(res)
-    a= Removing_Symbols_From_String(a)
+    a= res
+    a= display(a)
     Label_result.config(text="Result is " + a)
-    print(res)
 
 
 ##Ending of Caculation
@@ -472,4 +685,3 @@ call_result_Muli = partial(call_result_Muli, labelResult, FristEquation, SecondE
 buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli).grid(row=5, column=2)
 # App Runnig
 App.mainloop()
-############################################End of GUI PART#################
