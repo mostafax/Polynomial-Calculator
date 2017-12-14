@@ -567,15 +567,20 @@ def calc_multi(eq1, eq2):
     size1 = len(list1)
     size2 = len(list2)
     result = list()
-    check = False
+
     for i in range(0, size1):
+
         for j in range(0, size2):
+            check = False
+            check2 = False
             if (list1[i][0] == 0 and list2[j][0] == 0):
                 a = 0
                 b = 0
                 c = 0
                 d = 0
                 e = 0
+                m = 0
+
             else:
                 a = list1[i][0] * list2[j][0]
                 if (list1[i][1] == list2[j][1]):
@@ -594,47 +599,37 @@ def calc_multi(eq1, eq2):
                 elif (list1[i][3] != '1' and list2[j][3] == '1'):
                     d = list1[i][3]
                 elif (list1[i][3] != '1' and list2[j][3] != '1' and list1[i][3] != list2[j][3]):
-                    s = list1[i][1]
+                    if(list2[j][1] != '1'):
+                        check2 = True
+
+                    s = list1[i][3]
                     r = list2[j][3]
-                    c = list1[i][4]
+                    m = list1[i][4] + list2[j][2]
                     check = True
-                    e = list2[j][4]
+                    c = list2[j][4] + list1[i][2]
                     if (s < r):
                         b = s
                         d = r
-                if (check != True):
-                    e = list1[i][4] + list2[j][4]
-            result.append((a, b, c, d, e))
+                    else:
+                        b = r
+                        d = s
 
-    final_result = list()
+                e = list1[i][4] + list2[j][4]
 
-    for i in range(0, len(result)):
-        sum1 = 0
-        temp = 0
-        found = False
-        for j in range(0, len(result)):
 
-            if (i != j):
-                if result[i][2] == result[j][2] and result[i][4] == result[j][4]:
-                    sum1 += int(result[i][0]) + int(result[j][0])
-                    found = True
-                    result[j] = ('2', '2', '2', '2', '2')
-                    temp = temp + 1
-        if (found == True):
-            for k in range(0, temp - 1):
-                sum1 = sum1 - int(result[i][0])
-            if (sum1 != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and result[i][
-                4] != '2'):
-                if (sum1 != 0):
-                    final_result.append((sum1, result[i][1], result[i][2], result[i][3], result[i][4]))
-        else:
-            if (result[i][0] != '2' and result[i][1] != '2' and result[i][2] != '2' and result[i][3] != '2' and
-                        result[i][4] != '2'):
-                if (result[i][0] != 0):
-                    final_result.append((result[i][0], result[i][1], result[i][2], result[i][3], result[i][4]))
 
-    return final_result
+            if(a != 0):
+                if (check == True):
+                    if(check2 == True):
+                        result.append((a, b, m, d, c))
+                    else:
+                        result.append((a, b, c, d, m))
+                else:
 
+                    result.append((a, b, c, d, e))
+    final = contact(result)
+    string_final = display(final)
+    return string_final
 
 def call_result_Muli (Label_result,n1,n2):
     global Check
