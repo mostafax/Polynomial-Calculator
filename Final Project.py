@@ -601,6 +601,8 @@ def call_result_Dif(label_result, n1, n2):
     Generate = "-"
     result = ProsscingTheEqations(num1)
     result2 = ProsscingTheEqations(num2)
+    result = contact(result)
+    result2 = contact(result2)
     #print(result+result2)
     res = calc_diff(result,result2)
     #print(x)
