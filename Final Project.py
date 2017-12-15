@@ -387,7 +387,8 @@ def contact(eq):
 
             if (i != j):
 
-                if result[i][2] == result[j][2] and result[i][4] == result[j][4]:
+
+                if result[i][2] == result[j][2] and result[i][4] == result[j][4] and result[i][1] != '1' and result[j][1] != '1' and result[i][1] == result[j][1] and result[i][3] != '1' and result[j][3] != '1' and result[i][3] == result[j][3]:
 
                     sum1 += int(result[i][0]) + int(result[j][0])
 
@@ -722,7 +723,7 @@ def call_result_Muli (Label_result,n1,n2):
 App = tk.Tk()
 App.geometry('400x200+500+200')
 App.title('Polynomial calculator')
-
+#App.configure(background='white')
 # Varibles for Equations
 FristEquation = tk.StringVar()
 SecondEquation = tk.StringVar()
