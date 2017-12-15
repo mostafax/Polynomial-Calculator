@@ -19,6 +19,50 @@ def FileSearch(Fristequ, SecondEqu, Operation, Ruselt):
         Check=False
     #file.Close()
 
+def Removing_Symbols_From_String(OneString):
+    OneString = OneString.replace("'1'", "x")
+    Chars_To_Remove = ['(',',', ']', '[', ' ',')']
+    OneString = OneString.replace("+", "")
+    # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
+    OneString = OneString.replace(")","+")
+    OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
+    OneString = OneString[0:-2]
+    OneString = OneString.replace("+-", "-")
+
+    OneString = OneString.replace("'","")
+    print(OneString)
+    g = list(OneString)
+    l = list()
+    f = len(OneString)
+    for x in range(0,f):
+     #if f+2>=x:
+        if OneString[x]=='0':
+            if (g[x-1]>=str('A')and g[x-1]<=str('z')):
+                f-= 1
+              #  print(g[x-1])
+                g[x-1] = ''
+                g[x]=''
+
+    OneString ="".join(g)
+
+
+    return OneString
+
+
+def HatMenElFIle(Fristequ, SecondEqu, Operation):
+    global Check
+    Splitter = str(Fristequ)+" " + str(Operation)+" " + str(SecondEqu)+" "
+    if Check==True:
+        searchingfile = open('Math.txt', 'r')
+        print("Geting From File")
+        for Looking in searchingfile:
+#problem Srt not List
+             sp = Looking.split('=')
+             if Splitter ==sp[0]:
+                 print(sp[1])
+
+                 return sp[1]
+
 
 def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
     file = open("Math.txt", "a")  # a for append
@@ -462,14 +506,22 @@ def call_result_sum(label_result, n1, n2):
     Generate = "+"
     result = ProsscingTheEqations(num1)
     result2 = ProsscingTheEqations(num2)
-    res =  add(result,result2)
-    FileSearch(num1, num2, Generate, result)
-    if Check == False:
-     # prevernting The Re-Writing
-     fileworking(num1, num2, Generate, result)
-    a = res
-    a = display(a)
-    label_result.config(text="Result is " + a)
+    #print(result+result2)
+    res = add(result,result2)
+    #print(x)
+    FileSearch(num1, num2, Generate, res)
+    if Check == True:
+        a = HatMenElFIle(num1, num2, Generate)
+        a = Removing_Symbols_From_String(a)
+        label_result.config(text="Result is " + a)
+
+    elif Check == False:
+        # prevernting The Re-Writing
+        fileworking(num1, num2, Generate, res)
+        a = res
+        a = display(a)
+        label_result.config(text="Result is " + a)
+
 
 
 def calc_diff(MonoElements,MonoElements2):
@@ -549,16 +601,22 @@ def call_result_Dif(label_result, n1, n2):
     Generate = "-"
     result = ProsscingTheEqations(num1)
     result2 = ProsscingTheEqations(num2)
-    result = contact(result)
-    result2 = contact(result2)
+    #print(result+result2)
     res = calc_diff(result,result2)
+    #print(x)
     FileSearch(num1, num2, Generate, res)
-    if Check == False:
-     # prevernting The Re-Writing
-     fileworking(num1, num2, Generate, res)
-    a = res
-    a = display(a)
-    label_result.config(text="Result is " + a)
+    if Check == True:
+        a = HatMenElFIle(num1, num2, Generate)
+        a = Removing_Symbols_From_String(a)
+        label_result.config(text="Result is " + a)
+
+    elif Check == False:
+        # prevernting The Re-Writing
+        fileworking(num1, num2, Generate, res)
+        a = res
+        a = display(a)
+        label_result.config(text="Result is " + a)
+
 
 
 def calc_multi(eq1, eq2):
@@ -642,12 +700,17 @@ def call_result_Muli (Label_result,n1,n2):
     res = calc_multi(result,result2)
     #print(x)
     FileSearch(num1, num2, Generate, res)
-    if Check == False:
-     # prevernting The Re-Writing
-     fileworking(num1, num2, Generate, res)
-    a= res
-    a= display(a)
-    Label_result.config(text="Result is " + a)
+    if Check == True:
+        a = HatMenElFIle(num1, num2, Generate)
+        a = Removing_Symbols_From_String(a)
+        Label_result.config(text="Result is " + a)
+
+    elif Check == False:
+        # prevernting The Re-Writing
+        fileworking(num1, num2, Generate, res)
+        a = res
+        a = display(a)
+        Label_result.config(text="Result is " + a)
 
 
 ##Ending of Caculation
