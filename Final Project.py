@@ -404,20 +404,33 @@ def contact(eq):
 #display The Unrepeated Rquation
 def display(eq):
     final = eq
-    string_final = " "
+    string_final = ""
+
     for i in range(0, len(final)):
 
         if (final[i][0] != 0):
+            if (  i != 0):
+                if (final[i][0] == 1):
+                    string_final += "+"
+                elif ( final[i][0] > 1 ):
+                    string_final += "+"
+                    string_final += str(final[i][0])
+                elif(final[i][0] == -1):
+                    string_final += "-"
+                elif(final[i][0] < -1):
+                    string_final += final[i][0]
+            if(i == 0):
+                if (final[i][0] != 1 and final[i][0] != -1):
+                    string_final += str(final[i][0])
+                if (final[i][0] == -1):
+                    string_final += "-"
 
-            if (final[i][0] > 0 and i != 0):
-                string_final += "+"
-            string_final += str(final[i][0])
             if (final[i][1] != '1'):
+
+
                 string_final += str(final[i][1])
             if (final[i][2] != 0):
-                if (final[i][2] == 1):
-                    string_final += str(final[i][2])
-                else:
+                if(final[i][2] != 1):
                     string_final += "^"
                     string_final += str(final[i][2])
             if (final[i][3] != '1'):
@@ -426,10 +439,10 @@ def display(eq):
                 if (final[i][4] != 1):
                     string_final += "^"
                     string_final += str(final[i][4])
-        else:
-            string_final="0"
-    return string_final
-
+    if string_final=="":
+        return 0
+    else:
+        return string_final
 #Display The repeated Equation
 '''NOTE: The deffrance Between The two Dispalys the ^ symbol'''
 
