@@ -1,7 +1,10 @@
 import tkinter as tk
 import re #reqular exprisson
 from functools import partial
+
+
 #####Working With File#######
+
 # Searching in File
 Check = False
 def FileSearch(Fristequ, SecondEqu, Operation, Ruselt):
@@ -19,36 +22,8 @@ def FileSearch(Fristequ, SecondEqu, Operation, Ruselt):
         Check=False
     #file.Close()
 
-def Removing_Symbols_From_String(OneString):
-    OneString = OneString.replace("'1'", "x")
-    Chars_To_Remove = ['(',',', ']', '[', ' ',')']
-    OneString = OneString.replace("+", "")
-    # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
-    OneString = OneString.replace(")","+")
-    OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
-    OneString = OneString[0:-2]
-    OneString = OneString.replace("+-", "-")
 
-    OneString = OneString.replace("'","")
-    print(OneString)
-    g = list(OneString)
-    l = list()
-    f = len(OneString)
-    for x in range(0,f):
-     #if f+2>=x:
-        if OneString[x]=='0':
-            if (g[x-1]>=str('A')and g[x-1]<=str('z')):
-                f-= 1
-              #  print(g[x-1])
-                g[x-1] = ''
-                g[x]=''
-
-    OneString ="".join(g)
-
-
-    return OneString
-
-
+#Returnig the Answer of Repeted Equation
 def HatMenElFIle(Fristequ, SecondEqu, Operation):
     global Check
     Splitter = str(Fristequ)+" " + str(Operation)+" " + str(SecondEqu)+" "
@@ -56,14 +31,13 @@ def HatMenElFIle(Fristequ, SecondEqu, Operation):
         searchingfile = open('Math.txt', 'r')
         print("Geting From File")
         for Looking in searchingfile:
-#problem Srt not List
+               #Returning Str not List
              sp = Looking.split('=')
              if Splitter ==sp[0]:
-                 print(sp[1])
 
                  return sp[1]
 
-
+#Writing In The File
 def fileworking(Fristequ, SecondEqu, Operation, Ruselt):
     file = open("Math.txt", "a")  # a for append
     file.write(Fristequ)
@@ -427,7 +401,7 @@ def contact(eq):
     return final_result
 
 
-#final display
+#display The Unrepeated Rquation
 def display(eq):
     final = eq
     string_final = " "
@@ -456,8 +430,42 @@ def display(eq):
             string_final="0"
     return string_final
 
+#Display The repeated Equation
+'''NOTE: The deffrance Between The two Dispalys the ^ symbol'''
+
+def Removing_Symbols_From_String(OneString):
+    OneString = OneString.replace("'1'", "x")
+    Chars_To_Remove = ['(',',', ']', '[', ' ',')']
+    OneString = OneString.replace("+", "")
+    # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
+    OneString = OneString.replace(")","+")
+    OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
+    OneString = OneString[0:-2]
+    OneString = OneString.replace("+-", "-")
+
+    OneString = OneString.replace("'","")
+    #print(OneString)
+    g = list(OneString)
+    l = list()
+    f = len(OneString)
+    for x in range(0,f):
+     #if f+2>=x:
+        if OneString[x]=='0':
+            if (g[x-1]>=str('A')and g[x-1]<=str('z')):
+                f-= 1
+              #  print(g[x-1])
+                g[x-1] = ''
+                g[x]=''
+
+    OneString ="".join(g)
+
+
+    return OneString
+
 ##Start The Caculation##
 
+
+##Adding Equations##
 def add(eq1, eq2):
     removed=list()
     removed2=list()
@@ -500,6 +508,7 @@ def add(eq1, eq2):
 
     return (result)
 
+#Calling Function Add To Display The Ansewer On The GUI
 def call_result_sum(label_result, n1, n2):
     global Check
     num1 = (n1.get())
@@ -524,7 +533,7 @@ def call_result_sum(label_result, n1, n2):
         label_result.config(text="Result is " + a)
 
 
-
+#Substract Equation
 def calc_diff(MonoElements,MonoElements2):
  result=list()
  last_result=list()
@@ -594,6 +603,7 @@ def calc_diff(MonoElements,MonoElements2):
  #print(sett)
  return sorted(sett,reverse=True)
 
+#Calling Function Substarct To Display The Ansewer On The GUI
 
 def call_result_Dif(label_result, n1, n2):
     global Check
@@ -621,7 +631,7 @@ def call_result_Dif(label_result, n1, n2):
         label_result.config(text="Result is " + a)
 
 
-
+#Multipling Equations
 def calc_multi(eq1, eq2):
     list1 = eq1
     list2 = eq2
@@ -691,7 +701,7 @@ def calc_multi(eq1, eq2):
     final = contact(result)
     string_final = display(final)
     return final
-
+#Calling Function Muliplication To Display The Ansewer On The GUI
 def call_result_Muli (Label_result,n1,n2):
     global Check
     num1 = (n1.get())
@@ -728,7 +738,7 @@ App.title('Polynomial calculator')
 FristEquation = tk.StringVar()
 SecondEquation = tk.StringVar()
 
-#labelTitle = tk.Label(App, text="Polynomial calculator").grid(row=0, column=2)
+labelTitle = tk.Label(App, text="Polynomial calculator").grid(row=0, column=2)
 LabeelInfo = tk.Label(App, text = "Enter of Format EX: x^2+2y+5").grid(row = 0 , column =0)
 labelNum1 = tk.Label(App, text="Enter The Frist Equation").grid(row=1, column=0)
 labelNum2 = tk.Label(App, text="Enter The Second Equation").grid(row=2, column=0)
