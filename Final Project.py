@@ -442,6 +442,8 @@ def Removing_Symbols_From_String(OneString):
     OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
     OneString = OneString[0:-2]
     OneString = OneString.replace("+-", "-")
+    OneString = OneString.replace("+0", "")
+    OneString = OneString.replace("-0", "")
 
     OneString = OneString.replace("'","")
     #print(OneString)
@@ -503,7 +505,7 @@ def add(eq1, eq2):
 
     for j in range(len(result)):
        if result[j][0]==0:
-           result[j]=[0,0,0,0,0]
+           result[j]=[0,'','','','']
 
 
     return (result)
