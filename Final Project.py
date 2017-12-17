@@ -1,7 +1,5 @@
 import tkinter as tk
-import re #reqular exprisson
 from functools import partial
-
 
 #####Working With File#######
 
@@ -418,7 +416,7 @@ def display(eq):
                 elif(final[i][0] == -1):
                     string_final += "-"
                 elif(final[i][0] < -1):
-                    string_final += final[i][0]
+                    string_final += str(final[i][0])
             if(i == 0):
                 if (final[i][0] != 1 and final[i][0] != -1):
                     string_final += str(final[i][0])
@@ -443,39 +441,6 @@ def display(eq):
         return 0
     else:
         return string_final
-#Display The repeated Equation
-'''NOTE: The deffrance Between The two Dispalys the ^ symbol'''
-
-def Removing_Symbols_From_String(OneString):
-    OneString = OneString.replace("'1'", "x")
-    Chars_To_Remove = ['(',',', ']', '[', ' ',')']
-    OneString = OneString.replace("+", "")
-    # a=a.translate(None,''.join(Chars_To_Remove)) Python 2.7
-    OneString = OneString.replace(")","+")
-    OneString = OneString.translate(str.maketrans('', '', ''.join(Chars_To_Remove)))
-    OneString = OneString[0:-2]
-    OneString = OneString.replace("+-", "-")
-    OneString = OneString.replace("+0", "")
-    OneString = OneString.replace("-0", "")
-
-    OneString = OneString.replace("'","")
-    #print(OneString)
-    g = list(OneString)
-    l = list()
-    f = len(OneString)
-    for x in range(0,f):
-     #if f+2>=x:
-        if OneString[x]=='0':
-            if (g[x-1]>=str('A')and g[x-1]<=str('z')):
-                f-= 1
-              #  print(g[x-1])
-                g[x-1] = ''
-                g[x]=''
-
-    OneString ="".join(g)
-
-
-    return OneString
 
 ##Start The Caculation##
 
@@ -534,17 +499,20 @@ def call_result_sum(label_result, n1, n2):
     #print(result+result2)
     res = add(result,result2)
     #print(x)
-    FileSearch(num1, num2, Generate, res)
+    a = res
+    a = display(a)
+    a = str(a)
+    FileSearch(num1, num2, Generate, a)
     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
-        a = Removing_Symbols_From_String(a)
         label_result.config(text="Result is " + a)
 
     elif Check == False:
         # prevernting The Re-Writing
-        fileworking(num1, num2, Generate, res)
+        fileworking(num1, num2, Generate, a)
         a = res
         a = display(a)
+        a = str(a)
         label_result.config(text="Result is " + a)
 
 
@@ -632,17 +600,20 @@ def call_result_Dif(label_result, n1, n2):
     #print(result+result2)
     res = calc_diff(result,result2)
     #print(x)
-    FileSearch(num1, num2, Generate, res)
+    a = res
+    a = display(a)
+    a = str(a)
+    FileSearch(num1, num2, Generate, a)
     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
-        a = Removing_Symbols_From_String(a)
         label_result.config(text="Result is " + a)
 
     elif Check == False:
         # prevernting The Re-Writing
-        fileworking(num1, num2, Generate, res)
+        fileworking(num1, num2, Generate,a)
         a = res
         a = display(a)
+        a = str(a)
         label_result.config(text="Result is " + a)
 
 
@@ -659,13 +630,15 @@ def calc_multi(eq1, eq2):
         for j in range(0, size2):
             check = False
             check2 = False
+            check3 = False
+            check4 = False
             if (list1[i][0] == 0 and list2[j][0] == 0):
                 a = 0
                 b = 0
                 c = 0
                 d = 0
                 e = 0
-                m = 0
+
 
             else:
                 a = list1[i][0] * list2[j][0]
@@ -685,21 +658,36 @@ def calc_multi(eq1, eq2):
                 elif (list1[i][3] != '1' and list2[j][3] == '1'):
                     d = list1[i][3]
                 elif (list1[i][3] != '1' and list2[j][3] != '1' and list1[i][3] != list2[j][3]):
-                    if(list2[j][1] != '1'):
-                        check2 = True
-
-                    s = list1[i][3]
-                    r = list2[j][3]
-                    m = list1[i][4] + list2[j][2]
                     check = True
-                    c = list2[j][4] + list1[i][2]
-                    if (s < r):
-                        b = s
-                        d = r
-                    else:
-                        b = r
-                        d = s
+                    if(list2[j][1] == '1' and list1[i][1] == '1'):
 
+                        if(list1[i][3] < list2[j][3]):
+                            check2 = True
+                            sympol1 = list1[i][3]
+                            sympol2 = list2[j][3]
+                            power1 = list1[i][4]
+                            power2 = list2[j][4]
+                        else:
+                            check2 = True
+                            sympol1 = list2[j][3]
+                            sympol2 = list1[i][3]
+                            power1 = list1[i][4]
+                            power2 = list2[j][4]
+
+                    elif(list1[i][1] != '1' and list2[j][1] == '1'):
+                        check3 = True
+                        print("11111111")
+                        sym1 = list1[i][1]
+                        sym2 = list1[i][3]
+                        pow1 = list1[i][2] + list2[j][4]
+                        pow2 = list1[i][4]
+
+                    elif(list1[i][1] == '1' and list2[j][1] != '1'):
+                        check4 = True
+                        s1 = list2[j][1]
+                        p1 = list1[i][4] + list2[j][2]
+                        s2 = list2[j][3]
+                        p2 = list2[j][4]
                 e = list1[i][4] + list2[j][4]
 
 
@@ -707,14 +695,15 @@ def calc_multi(eq1, eq2):
             if(a != 0):
                 if (check == True):
                     if(check2 == True):
-                        result.append((a, b, m, d, c))
-                    else:
-                        result.append((a, b, c, d, m))
+                        result.append((a, sympol1, power1, sympol2, power2))
+                    elif(check3 == True):
+                        result.append((a, sym1, pow1, sym2, pow2))
+                    elif(check4 == True):
+                        result.append((a, s1, p1, s2, p2))
                 else:
-
                     result.append((a, b, c, d, e))
     final = contact(result)
-    string_final = display(final)
+
     return final
 #Calling Function Muliplication To Display The Ansewer On The GUI
 def call_result_Muli (Label_result,n1,n2):
@@ -727,17 +716,21 @@ def call_result_Muli (Label_result,n1,n2):
     #print(result+result2)
     res = calc_multi(result,result2)
     #print(x)
-    FileSearch(num1, num2, Generate, res)
+    a = res
+    a = display(a)
+    a = str(a)
+    FileSearch(num1, num2, Generate, a)
     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
-        a = Removing_Symbols_From_String(a)
         Label_result.config(text="Result is " + a)
 
     elif Check == False:
         # prevernting The Re-Writing
-        fileworking(num1, num2, Generate, res)
         a = res
         a = display(a)
+        a = str(a)
+        fileworking(num1, num2, Generate, a)
+
         Label_result.config(text="Result is " + a)
 
 
