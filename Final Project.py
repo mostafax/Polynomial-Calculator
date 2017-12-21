@@ -249,12 +249,18 @@ def caller(z):
 def find_term(x):
     y = list()
     y = x
+    z = ""
     for i in range(len(x)):
-
-        if x[i] == "-" and x[0][0] != "-":
+        if x[i] == "-":
             y = x.replace('-', '+-')
 
-    return y
+    if y[0] == '+':
+        for i in range(1, len(y)):
+            z += y[i]
+        return z
+
+    else:
+        return y
 
 
 def split_term(x):
@@ -340,7 +346,7 @@ def ProsscingTheEqations(EquationToBePrccesed):
 
 ##End Of String Procissing##
 def contact(eq):
-
+    print("a1 = " , eq)
     final_result = list()
 
     result = eq
@@ -360,7 +366,7 @@ def contact(eq):
             if (i != j):
 
 
-                if result[i][2] == result[j][2] and result[i][4] == result[j][4] and result[i][1] != '1' and result[j][1] != '1' and result[i][1] == result[j][1] and result[i][3] != '1' and result[j][3] != '1' and result[i][3] == result[j][3]:
+                if result[i][2] == result[j][2] and result[i][4] == result[j][4] and result[i][1] == result[j][1]  and result[i][3] == result[j][3]:
 
                     sum1 += int(result[i][0]) + int(result[j][0])
 
@@ -401,45 +407,161 @@ def contact(eq):
 
 #display The Unrepeated Rquation
 def display(eq):
-    final = eq
+
+
+
+    res = eq
+
+    final = list()
+
+    for k in range(0,len(res)):
+
+        if(res[k][0] !=0):
+
+            final.append((res[k]))
+
+
+
     string_final = ""
 
-    for i in range(0, len(final)):
 
-        if (final[i][0] != 0):
-            if (  i != 0):
-                if (final[i][0] == 1):
-                    string_final += "+"
-                elif ( final[i][0] > 1 ):
-                    string_final += "+"
-                    string_final += str(final[i][0])
-                elif(final[i][0] == -1):
+
+    if (len(final)== 1):
+
+
+
+        if(final[0][0] == 1 and final[0][1] == '1' and final[0][3] == '1'):
+
+            string_final += "1"
+
+        else:
+
+            if(final[0][0]!=0):
+
+                if(final[0][0] == -1 and final[0][1] == '1' and final[0][3] == '1'):
+
                     string_final += "-"
-                elif(final[i][0] < -1):
-                    string_final += str(final[i][0])
-            if(i == 0):
-                if (final[i][0] != 1 and final[i][0] != -1):
-                    string_final += str(final[i][0])
-                if (final[i][0] == -1):
+
+                    string_final += "1"
+
+                elif (final[0][0] == -1  and final[0][3] != '1'):
+
                     string_final += "-"
 
-            if (final[i][1] != '1'):
 
 
-                string_final += str(final[i][1])
-            if (final[i][2] != 0):
-                if(final[i][2] != 1):
-                    string_final += "^"
-                    string_final += str(final[i][2])
-            if (final[i][3] != '1'):
-                string_final += str(final[i][3])
-            if (final[i][4] != 0):
-                if (final[i][4] != 1):
-                    string_final += "^"
-                    string_final += str(final[i][4])
-    if string_final=="":
-        return 0
+                else:
+
+                    string_final += str(final[0][0])
+
+                if (final[0][1] != '1'):
+
+                    string_final += str(final[0][1])
+
+                if (final[0][2] != 0):
+
+                    if (final[0][2] != 1):
+
+                        string_final += "^"
+
+                        string_final += str(final[0][2])
+
+                if (final[0][3] != '1'):
+
+                    string_final += str(final[0][3])
+
+                if (final[0][4] != 0):
+
+                    if (final[0][4] != 1):
+
+                        string_final += "^"
+
+                        string_final += str(final[0][4])
+
     else:
+
+        for i in range(0, len(final)):
+
+            if (final[i][0] != 0):
+
+                if (  i != 0):
+
+                    if (final[i][0] == 1):
+
+                        string_final += "+"
+
+                        string_final += "1"
+
+                    elif ( final[i][0] > 1 ):
+
+                        string_final += "+"
+
+                        string_final += str(final[i][0])
+
+                    elif(final[i][0] == -1):
+
+                        string_final += "-"
+
+                        string_final += "1"
+
+                    elif(final[i][0] < -1):
+
+                        string_final += str(final[i][0])
+
+                elif(i == 0):
+
+                    if (final[i][0] > 1):
+
+                        string_final += str(final[i][0])
+
+                    elif (final[i][0] == -1):
+
+                        string_final += "-"
+
+                        string_final += "1"
+
+
+
+                    elif (final[i][0] < 1):
+
+                        string_final += str(final[i][0])
+
+
+
+                if (final[i][1] != '1'):
+
+
+
+
+
+                    string_final += str(final[i][1])
+
+                if (final[i][2] != 0):
+
+                    if(final[i][2] != 1):
+
+                        string_final += "^"
+
+                        string_final += str(final[i][2])
+
+                if (final[i][3] != '1'):
+
+                    string_final += str(final[i][3])
+
+                if (final[i][4] != 0):
+
+                    if (final[i][4] != 1):
+
+                        string_final += "^"
+
+                        string_final += str(final[i][4])
+
+    if string_final=="":
+
+        return 0
+
+    else:
+
         return string_final
 
 ##Start The Caculation##
@@ -486,7 +608,7 @@ def add(eq1, eq2):
            result[j]=[0,'','','','']
 
 
-    return (result)
+    return sorted(result,reverse=True)
 
 #Calling Function Add To Display The Ansewer On The GUI
 def call_result_sum(label_result, n1, n2):
@@ -510,9 +632,7 @@ def call_result_sum(label_result, n1, n2):
     elif Check == False:
         # prevernting The Re-Writing
         fileworking(num1, num2, Generate, a)
-        a = res
-        a = display(a)
-        a = str(a)
+
         label_result.config(text="Result is " + a)
 
 
@@ -611,9 +731,7 @@ def call_result_Dif(label_result, n1, n2):
     elif Check == False:
         # prevernting The Re-Writing
         fileworking(num1, num2, Generate,a)
-        a = res
-        a = display(a)
-        a = str(a)
+
         label_result.config(text="Result is " + a)
 
 
@@ -702,9 +820,10 @@ def calc_multi(eq1, eq2):
                         result.append((a, s1, p1, s2, p2))
                 else:
                     result.append((a, b, c, d, e))
+    print("result = " ,result )
     final = contact(result)
 
-    return final
+    return sorted(final,reverse=True)
 #Calling Function Muliplication To Display The Ansewer On The GUI
 def call_result_Muli (Label_result,n1,n2):
     global Check
@@ -726,9 +845,7 @@ def call_result_Muli (Label_result,n1,n2):
 
     elif Check == False:
         # prevernting The Re-Writing
-        a = res
-        a = display(a)
-        a = str(a)
+
         fileworking(num1, num2, Generate, a)
 
         Label_result.config(text="Result is " + a)
@@ -739,28 +856,36 @@ def call_result_Muli (Label_result,n1,n2):
 ######Starting The Gui Code#####
 # Adjusting Layout
 App = tk.Tk()
-App.geometry('400x200+500+200')
+App.geometry('800x400+500+200')
 App.title('Polynomial calculator')
 #App.configure(background='white')
 # Varibles for Equations
 FristEquation = tk.StringVar()
 SecondEquation = tk.StringVar()
+LabeelInfo = tk.Label(App, text = "Enter of Format EX: x^2+2x^4y^7+5",font=(None,14),background='white').grid(row = 0 , column =10)
+labelNum1 = tk.Label(App, text="Enter The Frist Equation",foreground ='blue',font=(None,14),background='white').grid(row=1, column=10)
+labelNum2 = tk.Label(App, text="Enter The Second Equation",foreground ='blue',font=(None,14),background='white').grid(row=2, column=10)
+labelResult = tk.Label(App,fg ='black',font=(None, 17),background='white')
+App.configure(background='white')
 
-labelTitle = tk.Label(App, text="Polynomial calculator").grid(row=0, column=2)
-LabeelInfo = tk.Label(App, text = "Enter of Format EX: x^2+2y+5").grid(row = 0 , column =0)
-labelNum1 = tk.Label(App, text="Enter The Frist Equation").grid(row=1, column=0)
-labelNum2 = tk.Label(App, text="Enter The Second Equation").grid(row=2, column=0)
-labelResult = tk.Label(App)
 #The Answer Will Be Displayed Here!!
-labelResult.grid(row=7, column=2)
+labelResult.grid(row=8, column=12)
 
-entryNum1 = tk.Entry(App, textvariable=FristEquation).grid(row=1, column=2)
-entryNum2 = tk.Entry(App, textvariable=SecondEquation).grid(row=2, column=2)
+App.option_add("*Entry.Font","Arial 12 bold")
+entryNum1 = tk.Entry(App, textvariable=FristEquation,foreground = 'black').grid(row=1, column=12)
+entryNum2 = tk.Entry(App, textvariable=SecondEquation,foreground = 'black').grid(row=2, column=12)
 call_result_sum = partial(call_result_sum, labelResult, FristEquation, SecondEquation)
-buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum).grid(row=3, column=2)
+buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum,width = 9,font=(None,10)).grid(row=3, column=12)
 call_result_Dif = partial(call_result_Dif, labelResult, FristEquation, SecondEquation)
-buttonDif = tk.Button(App,fg="red", text="Substract", command=call_result_Dif).grid(row=4, column=2)
+buttonDif = tk.Button(App,fg="red", text="Substract", command=call_result_Dif,width = 9,font=(None,10)).grid(row=5, column=12)
 call_result_Muli = partial(call_result_Muli, labelResult, FristEquation, SecondEquation)
-buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli).grid(row=5, column=2)
+buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli,width = 9,font=(None,10)).grid(row=7, column=12)
+#clear
+def clear():
+    labelResult.config(text="")
+
+
+ClearButton=tk.Button(App,text='C',width=3,command=clear).grid(row=8, column=15)
+
 # App Runnig
 App.mainloop()
