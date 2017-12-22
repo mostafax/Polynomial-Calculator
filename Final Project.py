@@ -858,34 +858,34 @@ def call_result_Muli (Label_result,n1,n2):
 App = tk.Tk()
 App.geometry('800x400+500+200')
 App.title('Polynomial calculator')
-#App.configure(background='white')
+#App.configure(background='black')
 # Varibles for Equations
 FristEquation = tk.StringVar()
 SecondEquation = tk.StringVar()
-LabeelInfo = tk.Label(App, text = "Enter of Format EX: x^2+2x^4y^7+5",font=(None,14),background='white').grid(row = 0 , column =10)
-labelNum1 = tk.Label(App, text="Enter The Frist Equation",foreground ='blue',font=(None,14),background='white').grid(row=1, column=10)
-labelNum2 = tk.Label(App, text="Enter The Second Equation",foreground ='blue',font=(None,14),background='white').grid(row=2, column=10)
-labelResult = tk.Label(App,fg ='black',font=(None, 17),background='white')
-App.configure(background='white')
+LabeelInfo = tk.Label(App, text = "Enter of Format Ex: x^2+2y+5",font=(None,14),background='black',foreground ='white').grid(row = 0 , column =10)
+labelNum1 = tk.Label(App, text="Enter The Frist Equation",foreground ='blue',font=(None,14),background='black').grid(row=1, column=10)
+labelNum2 = tk.Label(App, text="Enter The Second Equation",foreground ='blue',font=(None,14),background='black').grid(row=2, column=10)
+labelResult = tk.Label(App,fg ='white',font=(None, 17),background='black')
+App.configure(background='black')
 
 #The Answer Will Be Displayed Here!!
-labelResult.grid(row=8, column=12)
+labelResult.grid(row=9, column=12)
 
 App.option_add("*Entry.Font","Arial 12 bold")
 entryNum1 = tk.Entry(App, textvariable=FristEquation,foreground = 'black').grid(row=1, column=12)
 entryNum2 = tk.Entry(App, textvariable=SecondEquation,foreground = 'black').grid(row=2, column=12)
 call_result_sum = partial(call_result_sum, labelResult, FristEquation, SecondEquation)
-buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum,width = 9,font=(None,10)).grid(row=3, column=12)
+buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum,width = 9,font=(None,10),relief='groove',bg='white').grid(row=3, column=12)
 call_result_Dif = partial(call_result_Dif, labelResult, FristEquation, SecondEquation)
-buttonDif = tk.Button(App,fg="red", text="Substract", command=call_result_Dif,width = 9,font=(None,10)).grid(row=5, column=12)
+buttonDif = tk.Button(App,fg="red", text="Substract", command=call_result_Dif,width = 9,font=(None,10),relief='groove',bg='white').grid(row=5, column=12)
 call_result_Muli = partial(call_result_Muli, labelResult, FristEquation, SecondEquation)
-buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli,width = 9,font=(None,10)).grid(row=7, column=12)
+buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli,width = 9,font=(None,10),bg='white',relief='groove').grid(row=7, column=12)
 #clear
 def clear():
     labelResult.config(text="")
+    SecondEquation =''
 
-
-ClearButton=tk.Button(App,text='C',width=3,command=clear).grid(row=8, column=15)
+s=tk.Button(App,text='AC',width=3,command=clear).grid(row=9, column=15)
 
 # App Runnig
 App.mainloop()
