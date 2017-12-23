@@ -1,8 +1,9 @@
 import tkinter as tk
+#import pyttsx
 from functools import partial
 
 #####Working With File#######
-
+#Say=""
 # Searching in File
 Check = False
 def FileSearch(Fristequ, SecondEqu, Operation, Ruselt):
@@ -410,15 +411,31 @@ def display(eq):
 
 
 
+
+
+
+
     res = eq
+
+
 
     final = list()
 
+
+
     for k in range(0,len(res)):
+
+
 
         if(res[k][0] !=0):
 
+
+
             final.append((res[k]))
+
+
+
+
 
 
 
@@ -426,105 +443,211 @@ def display(eq):
 
 
 
+
+
+
+
     if (len(final)== 1):
+
+
+
+
 
 
 
         if(final[0][0] == 1 and final[0][1] == '1' and final[0][3] == '1'):
 
+
+
             string_final += "1"
+
+
 
         else:
 
+
+
             if(final[0][0]!=0):
 
+
+
                 if(final[0][0] == -1 and final[0][1] == '1' and final[0][3] == '1'):
+
+
 
                     string_final += "-"
 
                     string_final += "1"
 
+
+
+
+
+
+
                 elif (final[0][0] == -1  and final[0][3] != '1'):
+
+
 
                     string_final += "-"
 
 
 
-                else:
+
+
+
+
+                elif(final[0][0] >1 or final[0][0] < 1  and final[0][3] != '1'):
 
                     string_final += str(final[0][0])
 
+
+
                 if (final[0][1] != '1'):
+
+
 
                     string_final += str(final[0][1])
 
+
+
                 if (final[0][2] != 0):
+
+
 
                     if (final[0][2] != 1):
 
+
+
                         string_final += "^"
+
+
 
                         string_final += str(final[0][2])
 
+
+
                 if (final[0][3] != '1'):
+
+
 
                     string_final += str(final[0][3])
 
+
+
                 if (final[0][4] != 0):
+
+
 
                     if (final[0][4] != 1):
 
+
+
                         string_final += "^"
+
+
 
                         string_final += str(final[0][4])
 
+
+
     else:
+
+
 
         for i in range(0, len(final)):
 
+
+
             if (final[i][0] != 0):
+
+
 
                 if (  i != 0):
 
+
+
                     if (final[i][0] == 1):
+
+
 
                         string_final += "+"
 
-                        string_final += "1"
+
+
+
+
+
 
                     elif ( final[i][0] > 1 ):
 
+
+
                         string_final += "+"
 
+
+
                         string_final += str(final[i][0])
+
+
 
                     elif(final[i][0] == -1):
 
+
+
                         string_final += "-"
 
-                        string_final += "1"
+
+
+
+
+
 
                     elif(final[i][0] < -1):
 
+
+
                         string_final += str(final[i][0])
+
+
 
                 elif(i == 0):
 
+
+
                     if (final[i][0] > 1):
+
+
 
                         string_final += str(final[i][0])
 
+
+
                     elif (final[i][0] == -1):
+
+
 
                         string_final += "-"
 
-                        string_final += "1"
+
+
+
+
+
+
+
 
 
 
                     elif (final[i][0] < 1):
 
+
+
                         string_final += str(final[i][0])
+
+
+
+
 
 
 
@@ -534,36 +657,69 @@ def display(eq):
 
 
 
+
+
+
+
+
+
                     string_final += str(final[i][1])
+
+
 
                 if (final[i][2] != 0):
 
+
+
                     if(final[i][2] != 1):
 
+
+
                         string_final += "^"
+
+
 
                         string_final += str(final[i][2])
 
+
+
                 if (final[i][3] != '1'):
+
+
 
                     string_final += str(final[i][3])
 
+
+
                 if (final[i][4] != 0):
+
+
 
                     if (final[i][4] != 1):
 
+
+
                         string_final += "^"
+
+
 
                         string_final += str(final[i][4])
 
+
+
     if string_final=="":
+
+
 
         return 0
 
+
+
     else:
 
-        return string_final
 
+
+        return string_final
 ##Start The Caculation##
 
 
@@ -610,8 +766,10 @@ def add(eq1, eq2):
 
     return sorted(result,reverse=True)
 
+
 #Calling Function Add To Display The Ansewer On The GUI
 def call_result_sum(label_result, n1, n2):
+
     global Check
     num1 = (n1.get())
     num2 = (n2.get())
@@ -627,13 +785,17 @@ def call_result_sum(label_result, n1, n2):
     FileSearch(num1, num2, Generate, a)
     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
+
         label_result.config(text="Result is " + a)
+
 
     elif Check == False:
         # prevernting The Re-Writing
         fileworking(num1, num2, Generate, a)
 
         label_result.config(text="Result is " + a)
+
+
 
 
 #Substract Equation
@@ -827,6 +989,7 @@ def calc_multi(eq1, eq2):
 #Calling Function Muliplication To Display The Ansewer On The GUI
 def call_result_Muli (Label_result,n1,n2):
     global Check
+
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "*"
@@ -851,41 +1014,177 @@ def call_result_Muli (Label_result,n1,n2):
         Label_result.config(text="Result is " + a)
 
 
+
+
+def First_driv(eq):
+    result=list()
+    for i in range(len(eq)):
+
+        if eq[i][1]!='1' and eq[i][3]!='1':
+            coff1=eq[i][0]*eq[i][2]
+            pow1=eq[i][2]-1
+            drev1=".d/d"+eq[i][1]
+            coff2 = eq[i][0] * eq[i][4]
+            pow2 = eq[i][4] - 1
+            drev2 = ".d/d"+eq[i][3]
+            sub = ""
+            if (coff1 ==-1):
+                sub+="-"
+            if (coff1!=1 and coff1!=-1 ):
+               sub+=str(coff1)
+            if (pow1!=0):
+                sub+=eq[i][1]
+                if (pow1!=1):
+                    sub+="^"
+                    sub += str(pow1)
+            sub+=eq[i][3]
+            if (eq[i][4]!=1):
+                sub+="^"
+                sub+=str(eq[i][4])
+            sub+=drev1
+            if (coff2 ==-1):
+                sub+="-"
+            if (coff2>0):
+              sub+="+"
+            if (coff2 != 1 and coff2 !=-1):
+              sub+=str(coff2)
+            if (pow2 != 0):
+                sub += eq[i][3]
+                if (pow2!=1):
+                    sub+="^"
+                    sub += str(pow2)
+            sub += eq[i][1]
+            if (eq[i][2]!=1):
+                sub+="^"
+                sub+=str(eq[i][2])
+            sub+=drev2
+            result.append(sub)
+
+        if eq[i][1]=='1' and eq[i][3]!='1':
+            coff1 = eq[i][0] * eq[i][4]
+            pow = eq[i][4] - 1
+            sub = ""
+            sub+=str(coff1)
+            if (pow != 0):
+                sub += eq[i][3]
+                if (pow!=1):
+                    sub+="^"
+                    sub += str(pow)
+
+            result.append(sub)
+    print (result)
+
+    return result
+def dispalyDriv (x):
+    y = ""
+    for i in range(len(x)):
+        y += x[i]
+        if i != (len(x) - 1):
+            y += "+"
+    y=y.replace("+-","-")
+    return y
+
+
+def call_result_Dir1 (Label_result,n1):
+    global Check
+    num1 = (n1.get())
+    Generate = "D"
+    result = ProsscingTheEqations(num1)
+
+    # print(result+result2)
+    res = First_driv(result)
+    # print(x)
+    a = res
+    a = dispalyDriv(a)
+    a = str(a)
+    FileSearch(num1, "0", Generate, a)
+    if Check == True:
+        a = HatMenElFIle(num1, "0", Generate)
+        Label_result.config(text="Result is " + a)
+
+    elif Check == False:
+        # prevernting The Re-Writing
+
+        fileworking(num1, "0", Generate, a)
+
+        Label_result.config(text="Result is " + a)
+
+
+def call_result_Dir2(Label_result,n2):
+    global Check
+    num2 = (n2.get())
+    Generate = "D"
+    result = ProsscingTheEqations(num2)
+
+    # print(result+result2)
+    res = First_driv(result)
+    # print(x)
+    a = res
+    a = dispalyDriv(a)
+    a = str(a)
+    FileSearch("0", num2, Generate, a)
+    if Check == True:
+        a = HatMenElFIle("0", num2, Generate)
+        Label_result.config(text="Result is " + a)
+
+    elif Check == False:
+        # prevernting The Re-Writing
+
+        fileworking("0", num2, Generate, a)
+
+        Label_result.config(text="Result is " + a)
+
+
 ##Ending of Caculation
 
 ######Starting The Gui Code#####
-# Adjusting Layout
-App = tk.Tk()
-App.geometry('800x400+500+200')
-App.title('Polynomial calculator')
-#App.configure(background='black')
-# Varibles for Equations
-FristEquation = tk.StringVar()
-SecondEquation = tk.StringVar()
-LabeelInfo = tk.Label(App, text = "Enter of Format Ex: x^2+2y+5",font=(None,14),background='black',foreground ='white').grid(row = 0 , column =10)
-labelNum1 = tk.Label(App, text="Enter The Frist Equation",foreground ='blue',font=(None,14),background='black').grid(row=1, column=10)
-labelNum2 = tk.Label(App, text="Enter The Second Equation",foreground ='blue',font=(None,14),background='black').grid(row=2, column=10)
-labelResult = tk.Label(App,fg ='white',font=(None, 17),background='black')
-App.configure(background='black')
-
-#The Answer Will Be Displayed Here!!
-labelResult.grid(row=9, column=12)
-
-App.option_add("*Entry.Font","Arial 12 bold")
-entryNum1 = tk.Entry(App, textvariable=FristEquation,foreground = 'black').grid(row=1, column=12)
-entryNum2 = tk.Entry(App, textvariable=SecondEquation,foreground = 'black').grid(row=2, column=12)
-call_result_sum = partial(call_result_sum, labelResult, FristEquation, SecondEquation)
-buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum,width = 9,font=(None,10),relief='groove',bg='white').grid(row=3, column=12)
-call_result_Dif = partial(call_result_Dif, labelResult, FristEquation, SecondEquation)
-buttonDif = tk.Button(App,fg="red", text="Substract", command=call_result_Dif,width = 9,font=(None,10),relief='groove',bg='white').grid(row=5, column=12)
-call_result_Muli = partial(call_result_Muli, labelResult, FristEquation, SecondEquation)
-buttonMuli = tk.Button(App,fg="green", text="multiply", command=call_result_Muli,width = 9,font=(None,10),bg='white',relief='groove').grid(row=7, column=12)
 #clear
 def clear():
     labelResult.config(text="")
-    SecondEquation =''
 
-s=tk.Button(App,text='AC',width=3,command=clear).grid(row=9, column=15)
 
+# Adjusting Layout
+App = tk.Tk()
+App.geometry('1300x400')
+App.title('Polynomial calculator')
+#App.configure(background='black')
+FristEquation = tk.StringVar()
+# Varibles for Equations
+SecondEquation = tk.StringVar()
+LabeelInfo = tk.Label(App, text = "Enter of Format Ex: x^2+2y+5",font=('bold',14),background='white').grid(row = 0 , column =0)
+labelNum1 = tk.Label(App, text="Enter The Frist Equation      ",foreground ='blue',font=(None,14),background='white').grid(row=1, column=0)
+labelNum2 = tk.Label(App, text="Enter The Second Equation",foreground ='blue',font=(None,14),background='white').grid(row=2, column=0)
+labelResult = tk.Label(App,font=(None, 15),background='white')
+App.configure(background='white')
+
+#The Answer Will Be Displayed Here!!
+labelResult.grid(row=11, column=12)
+
+App.option_add("*Entry.Font","Arial 14 bold")
+entryNum1 = tk.Entry(App, textvariable=FristEquation,foreground = 'black').grid(row=1, column=12)
+entryNum2 = tk.Entry(App, textvariable=SecondEquation,foreground = 'black').grid(row=2, column=12)
+call_result_sum = partial(call_result_sum, labelResult, FristEquation, SecondEquation)
+buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum,width = 10,font=(None,10,'bold'),relief='groove',bg='white').grid(row=1, column=15)
+call_result_Dif = partial(call_result_Dif, labelResult, FristEquation, SecondEquation)
+buttonDif = tk.Button(App,fg="blue", text="Substract", command=call_result_Dif,width = 10,font=(None,10,'bold'),relief='groove',bg='white').grid(row=2, column=15)
+call_result_Muli = partial(call_result_Muli, labelResult, FristEquation, SecondEquation)
+call_result_Dir1 = partial(call_result_Dir1,labelResult,FristEquation)
+call_result_Dir2 = partial(call_result_Dir2,labelResult,SecondEquation)
+buttonMuli = tk.Button(App,fg="blue", text="Multiply", command=call_result_Muli,width = 10,font=(None,10,'bold'),bg='white',relief='groove').grid(row=7, column=15)
+buttonDir1 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir1,width = 8,font=("Times New Roman", 9, "bold"),bg='white',relief='groove').grid(row=1, column=13)
+buttonDir2 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir2,width = 8,font=("Times New Roman", 9, "bold"),bg='white',relief='groove').grid(row=2, column=13)
+
+buttonClear=tk.Button(App,text='AC',width=3,command=clear).grid(row=16, column=12)
+
+#def Take(sttr):
+
+#    x = sttr
+#    print(x)
+#    engine = pyttsx.init()
+#    engine.say(x)
+#    engine.runAndWait()
+
+#Take = partial(Take,Say)
+#button = tk.Button(App,text = "Sound",command = Take,width = 2).grid(row = 17,column = 12)
 # App Runnig
 App.mainloop()
