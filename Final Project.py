@@ -409,33 +409,17 @@ def contact(eq):
 #display The Unrepeated Rquation
 def display(eq):
 
-
-
-
-
-
+    print("eq = ",eq)
 
     res = eq
 
-
-
     final = list()
-
-
 
     for k in range(0,len(res)):
 
-
-
         if(res[k][0] !=0):
 
-
-
             final.append((res[k]))
-
-
-
-
 
 
 
@@ -443,197 +427,98 @@ def display(eq):
 
 
 
-
-
-
-
     if (len(final)== 1):
-
-
-
-
 
 
 
         if(final[0][0] == 1 and final[0][1] == '1' and final[0][3] == '1'):
 
-
-
             string_final += "1"
-
-
 
         else:
 
-
-
             if(final[0][0]!=0):
-
-
 
                 if(final[0][0] == -1 and final[0][1] == '1' and final[0][3] == '1'):
 
-
-
                     string_final += "-"
-
                     string_final += "1"
-
-
-
-
 
 
 
                 elif (final[0][0] == -1  and final[0][3] != '1'):
 
-
-
                     string_final += "-"
 
 
 
-
-
-
-
                 elif(final[0][0] >1 or final[0][0] < 1  and final[0][3] != '1'):
-
                     string_final += str(final[0][0])
-
-
-
+                else:
+                    string_final += str(final[0][0])
                 if (final[0][1] != '1'):
-
-
 
                     string_final += str(final[0][1])
 
-
-
                 if (final[0][2] != 0):
-
-
 
                     if (final[0][2] != 1):
 
-
-
                         string_final += "^"
-
-
 
                         string_final += str(final[0][2])
 
-
-
                 if (final[0][3] != '1'):
-
-
 
                     string_final += str(final[0][3])
 
-
-
                 if (final[0][4] != 0):
-
-
 
                     if (final[0][4] != 1):
 
-
-
                         string_final += "^"
-
-
 
                         string_final += str(final[0][4])
 
-
-
     else:
-
-
 
         for i in range(0, len(final)):
 
-
-
             if (final[i][0] != 0):
-
-
 
                 if (  i != 0):
 
-
-
                     if (final[i][0] == 1):
 
-
-
                         string_final += "+"
-
-
-
-
 
 
 
                     elif ( final[i][0] > 1 ):
 
-
-
                         string_final += "+"
-
-
 
                         string_final += str(final[i][0])
 
-
-
                     elif(final[i][0] == -1):
 
-
-
                         string_final += "-"
-
-
-
-
 
 
 
                     elif(final[i][0] < -1):
 
-
-
                         string_final += str(final[i][0])
-
-
 
                 elif(i == 0):
 
-
-
                     if (final[i][0] > 1):
-
-
 
                         string_final += str(final[i][0])
 
-
-
                     elif (final[i][0] == -1):
 
-
-
                         string_final += "-"
-
-
-
-
-
-
 
 
 
@@ -641,13 +526,7 @@ def display(eq):
 
                     elif (final[i][0] < 1):
 
-
-
                         string_final += str(final[i][0])
-
-
-
-
 
 
 
@@ -657,69 +536,39 @@ def display(eq):
 
 
 
-
-
-
-
-
-
                     string_final += str(final[i][1])
-
-
 
                 if (final[i][2] != 0):
 
-
-
                     if(final[i][2] != 1):
 
-
-
                         string_final += "^"
-
-
 
                         string_final += str(final[i][2])
 
-
-
                 if (final[i][3] != '1'):
-
-
 
                     string_final += str(final[i][3])
 
-
-
                 if (final[i][4] != 0):
-
-
 
                     if (final[i][4] != 1):
 
-
-
                         string_final += "^"
-
-
 
                         string_final += str(final[i][4])
 
-
-
     if string_final=="":
-
-
 
         return 0
 
-
-
     else:
 
-
-
         return string_final
+
+
+
+
 ##Start The Caculation##
 
 
@@ -1082,6 +931,8 @@ def dispalyDriv (x):
         if i != (len(x) - 1):
             y += "+"
     y=y.replace("+-","-")
+    if y =="":
+        return "0"
     return y
 
 
@@ -1158,19 +1009,31 @@ labelResult = tk.Label(App,font=(None, 15),background='white')
 App.configure(background='white')
 
 #The Answer Will Be Displayed Here!!
-labelResult.grid(row=11, column=12)
+labelResult.grid(row=12, column=12)
 
 App.option_add("*Entry.Font","Arial 14 bold")
 entryNum1 = tk.Entry(App, textvariable=FristEquation,foreground = 'black').grid(row=1, column=12)
 entryNum2 = tk.Entry(App, textvariable=SecondEquation,foreground = 'black').grid(row=2, column=12)
 call_result_sum = partial(call_result_sum, labelResult, FristEquation, SecondEquation)
-buttonSum = tk.Button(App,fg="blue", text="Sum", command=call_result_sum,width = 10,font=(None,10,'bold'),relief='groove',bg='white').grid(row=1, column=15)
+
+buttonSum = tk.Button(App,fg="blue", command=call_result_sum,width = 80,height=72,font=(None,10,'bold'),relief='flat',bg='white')
+image1=tk.PhotoImage(file="cir1.png")
+buttonSum.configure(image = image1)
+buttonSum.grid(row=7, column=12)
 call_result_Dif = partial(call_result_Dif, labelResult, FristEquation, SecondEquation)
-buttonDif = tk.Button(App,fg="blue", text="Substract", command=call_result_Dif,width = 10,font=(None,10,'bold'),relief='groove',bg='white').grid(row=2, column=15)
+buttonDif = tk.Button(App,fg="blue", text="Substract", command=call_result_Dif,width = 80,height = 72,font=(None,10,'bold'),relief='flat',bg='white')
+image3 = tk.PhotoImage(file="cir3.png")
+buttonDif.config(image = image3)
+buttonDif.grid(row=7, column=13)
+
 call_result_Muli = partial(call_result_Muli, labelResult, FristEquation, SecondEquation)
 call_result_Dir1 = partial(call_result_Dir1,labelResult,FristEquation)
 call_result_Dir2 = partial(call_result_Dir2,labelResult,SecondEquation)
-buttonMuli = tk.Button(App,fg="blue", text="Multiply", command=call_result_Muli,width = 10,font=(None,10,'bold'),bg='white',relief='groove').grid(row=7, column=15)
+buttonMuli = tk.Button(App,fg="blue", text="Multiply", command=call_result_Muli,width = 80,height=72,font=(None,10,'bold'),bg='white',relief='flat')
+image2=tk.PhotoImage(file="cir2.png")
+buttonMuli.config(image = image2)
+buttonMuli.grid(row=7, column=11)
+
 buttonDir1 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir1,width = 8,font=("Times New Roman", 9, "bold"),bg='white',relief='groove').grid(row=1, column=13)
 buttonDir2 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir2,width = 8,font=("Times New Roman", 9, "bold"),bg='white',relief='groove').grid(row=2, column=13)
 
