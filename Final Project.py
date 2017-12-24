@@ -1,5 +1,5 @@
 import tkinter as tk
-#import pyttsx
+import pyttsx
 from functools import partial
 
 #####Working With File#######
@@ -644,7 +644,10 @@ def call_result_sum(label_result, n1, n2):
 
         label_result.config(text="Result is " + a)
 
-
+    a = a.replace("^"," power ")
+    engine = pyttsx.init()
+    engine.say(a)
+    engine.runAndWait()
 
 
 #Substract Equation
@@ -744,6 +747,10 @@ def call_result_Dif(label_result, n1, n2):
         fileworking(num1, num2, Generate,a)
 
         label_result.config(text="Result is " + a)
+    a = a.replace("^"," power ")
+    engine = pyttsx.init()
+    engine.say(a)
+    engine.runAndWait()
 
 
 #Multipling Equations
@@ -800,12 +807,12 @@ def calc_multi(eq1, eq2):
                             check2 = True
                             sympol1 = list2[j][3]
                             sympol2 = list1[i][3]
-                            power1 = list1[i][4]
-                            power2 = list2[j][4]
+                            power2 = list1[i][4]
+                            power1 = list2[j][4]
 
                     elif(list1[i][1] != '1' and list2[j][1] == '1'):
                         check3 = True
-                        print("11111111")
+
                         sym1 = list1[i][1]
                         sym2 = list1[i][3]
                         pow1 = list1[i][2] + list2[j][4]
@@ -831,10 +838,11 @@ def calc_multi(eq1, eq2):
                         result.append((a, s1, p1, s2, p2))
                 else:
                     result.append((a, b, c, d, e))
-    print("result = " ,result )
+
     final = contact(result)
 
     return sorted(final,reverse=True)
+
 #Calling Function Muliplication To Display The Ansewer On The GUI
 def call_result_Muli (Label_result,n1,n2):
     global Check
@@ -862,6 +870,10 @@ def call_result_Muli (Label_result,n1,n2):
 
         Label_result.config(text="Result is " + a)
 
+    a = a.replace("^"," power ")
+    engine = pyttsx.init()
+    engine.say(a)
+    engine.runAndWait()
 
 
 
