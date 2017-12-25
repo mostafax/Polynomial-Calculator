@@ -636,21 +636,20 @@ def add(eq1, eq2):
 
 
 def Erorr(x):
-    return False
-    if '!' in x or '#' in x or '@' in x or '#' in x or '*' in x or '~' in x or ')' in x or '$' in x or '(' in x or '[' in x or ']' in x or '{' in x or '"' in x or "'" in x:
-        return True
-    else:
-        check = True
-        count = 0
-        for i in range(len(x)):
-            if x[i].isalpha():
-                check = False
-            if x[i] == ".":
-                count += 1
-        if count > 1:
-            check = True
+    check=True
+    count=0
+    for i in range (len(x)):
+        if x[i].isalpha()or x[i].isdigit()or x[i]=='-' or x[i]=='+' or x[i]=='^':
+            check = False
+        else:
+            check=True
+            return check
+        if x[i]==".":
+             count+=1
+    if count >1:
+        check=True
 
-        return check
+    return check
 
 
 def call_result_sum(label_result, n1, n2):
