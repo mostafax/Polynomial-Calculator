@@ -76,6 +76,14 @@ class term:
         self.power = []
 
     def get_coff(self):
+        count = 0
+        for i in range(len(self.sub_term)):
+            if (self.sub_term[i] == "."):
+                for j in range(i + 1, len(self.sub_term)):
+                    if ord(self.sub_term[j]) >= 65 and ord(self.sub_term[j]) <= 90 or ord(
+                            self.sub_term[j]) >= 97 and ord(self.sub_term[j]) <= 122:
+                        break
+                    count += 1
 
         if self.sub_term[0] != '-':
             if ord(self.sub_term[0]) >= 65 and ord(self.sub_term[0]) <= 90 or ord(self.sub_term[0]) >= 97 and ord(
@@ -94,12 +102,15 @@ class term:
                         self.sub_term[i]) >= 97 and ord(self.sub_term[i]) <= 122:
                     break
                 else:
+                    if (self.sub_term[i] != "."):
+                        self.coff *= 10
 
-                    self.coff *= 10
-
-                    self.coff += ord(self.sub_term[i]) - 48
+                        self.coff += ord(self.sub_term[i]) - 48
 
             self.coff *= -1
+            if (count != 0):
+                for i in range(count):
+                    self.coff = self.coff / 10
             return self.coff
 
 
@@ -114,9 +125,13 @@ class term:
 
                 else:
 
-                    self.coff *= 10
+                    if (self.sub_term[i] != "."):
+                        self.coff *= 10
 
-                    self.coff += ord(self.sub_term[i]) - 48
+                        self.coff += ord(self.sub_term[i]) - 48
+            if (count != 0):
+                for i in range(count):
+                    self.coff = self.coff / 10
             return self.coff
 
     def get_symbol(self):
@@ -645,8 +660,14 @@ def call_result_sum(label_result, n1, n2):
         label_result.config(text="Result is " + a)
 
     a = a.replace("^"," power ")
+    a = a.replace("-", " minus ")
+    num1 = num1.replace('^',' power')
+    num1 = num1.replace("-", " minus ")
+    num2 = num2.replace('^',' power ')
+    num2 = num2.replace("-", " minus ")
     engine = pyttsx.init()
-    engine.say(a)
+    engine.setProperty('rate', 120)
+    engine.say(num1+" plus "+num2+'='+a)
     engine.runAndWait()
 
 
@@ -748,8 +769,14 @@ def call_result_Dif(label_result, n1, n2):
 
         label_result.config(text="Result is " + a)
     a = a.replace("^"," power ")
+    a = a.replace("-", " minus ")
+    num1 = num1.replace('^',' power')
+    num1 = num1.replace("-", " minus ")
+    num2 = num2.replace('^',' power ')
+    num2 = num2.replace("-", " minus ")
     engine = pyttsx.init()
-    engine.say(a)
+    engine.setProperty('rate', 120)
+    engine.say(num1+" munis "+num2+'='+a)
     engine.runAndWait()
 
 
@@ -871,8 +898,14 @@ def call_result_Muli (Label_result,n1,n2):
         Label_result.config(text="Result is " + a)
 
     a = a.replace("^"," power ")
+    a = a.replace("-", " minus ")
+    num1 = num1.replace('^',' power')
+    num1 = num1.replace("-", " minus ")
+    num2 = num2.replace('^',' power ')
+    num2 = num2.replace("-", " minus ")
     engine = pyttsx.init()
-    engine.say(a)
+    engine.setProperty('rate', 120)
+    engine.say(num1+" Times "+num2+'='+a)
     engine.runAndWait()
 
 
@@ -945,6 +978,7 @@ def dispalyDriv (x):
     y=y.replace("+-","-")
     if y =="":
         return "0"
+
     return y
 
 
@@ -972,6 +1006,14 @@ def call_result_Dir1 (Label_result,n1):
 
         Label_result.config(text="Result is " + a)
 
+    a = a.replace("^"," power ")
+    a = a.replace("-", " minus ")
+    a = a.replace('.', ' Times ')
+    num1 = num1.replace('-'," munis")
+    engine = pyttsx.init()
+    engine.setProperty('rate', 120)
+    engine.say(" drivitive of " + num1 + '=' + a)
+    engine.runAndWait()
 
 def call_result_Dir2(Label_result,n2):
     global Check
@@ -997,7 +1039,14 @@ def call_result_Dir2(Label_result,n2):
 
         Label_result.config(text="Result is " + a)
 
-
+    a = a.replace("^"," power ")
+    a = a.replace("-", " minus ")
+    a = a.replace('.', ' Times ')
+    num2 = num2.replace('-'," munis")
+    engine = pyttsx.init()
+    engine.setProperty('rate', 120)
+    engine.say(" drivitive of "+num2+'='+a)
+    engine.runAndWait()
 ##Ending of Caculation
 
 ######Starting The Gui Code#####
@@ -1014,7 +1063,7 @@ App.title('Polynomial calculator')
 FristEquation = tk.StringVar()
 # Varibles for Equations
 SecondEquation = tk.StringVar()
-LabeelInfo = tk.Label(App, text = "Enter of Format Ex: x^2+2y+5",font=('bold',14),background='white').grid(row = 0 , column =0)
+LabeelInfo = tk.Label(App, text = "Enter of Format Ex: x^2+2.5y+5",font=('bold',14),background='white').grid(row = 0 , column =0)
 labelNum1 = tk.Label(App, text="Enter The Frist Equation      ",foreground ='blue',font=(None,14),background='white').grid(row=1, column=0)
 labelNum2 = tk.Label(App, text="Enter The Second Equation",foreground ='blue',font=(None,14),background='white').grid(row=2, column=0)
 labelResult = tk.Label(App,font=(None, 15),background='white')
