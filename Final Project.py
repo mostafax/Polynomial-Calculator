@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox
 import pyttsx
 from functools import partial
 
@@ -424,7 +425,7 @@ def contact(eq):
 #display The Unrepeated Rquation
 def display(eq):
 
-    print("eq = ",eq)
+
 
     res = eq
 
@@ -469,8 +470,7 @@ def display(eq):
 
                 elif(final[0][0] >1 or final[0][0] < 1  and final[0][3] != '1'):
                     string_final += str(final[0][0])
-                else:
-                    string_final += str(final[0][0])
+
                 if (final[0][1] != '1'):
 
                     string_final += str(final[0][1])
@@ -583,7 +583,6 @@ def display(eq):
 
 
 
-
 ##Start The Caculation##
 
 
@@ -632,43 +631,72 @@ def add(eq1, eq2):
 
 
 #Calling Function Add To Display The Ansewer On The GUI
+
+
+
+
+def Erorr(x):
+    return False
+    if '!' in x or '#' in x or '@' in x or '#' in x or '*' in x or '~' in x or ')' in x or '$' in x or '(' in x or '[' in x or ']' in x or '{' in x or '"' in x or "'" in x:
+        return True
+    else:
+        check = True
+        count = 0
+        for i in range(len(x)):
+            if x[i].isalpha():
+                check = False
+            if x[i] == ".":
+                count += 1
+        if count > 1:
+            check = True
+
+        return check
+
+
 def call_result_sum(label_result, n1, n2):
 
     global Check
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "+"
-    result = ProsscingTheEqations(num1)
-    result2 = ProsscingTheEqations(num2)
-    #print(result+result2)
-    res = add(result,result2)
-    #print(x)
-    a = res
-    a = display(a)
-    a = str(a)
-    FileSearch(num1, num2, Generate, a)
-    if Check == True:
+    Ch1= Erorr(num1)
+    Ch2 =Erorr(num2)
+    if Ch1==True or Ch2==True:
+        tkinter.messagebox.showinfo("Erorr", "Invalid Input")
+        return
+    else:
+
+     result = ProsscingTheEqations(num1)
+     result2 = ProsscingTheEqations(num2)
+     #print(result+result2)
+     res = add(result,result2)
+     #print(x)
+     a = res
+     a = display(a)
+     a = str(a)
+     FileSearch(num1, num2, Generate, a)
+     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
 
         label_result.config(text="Result is " + a)
 
 
-    elif Check == False:
+     elif Check == False:
         # prevernting The Re-Writing
         fileworking(num1, num2, Generate, a)
 
         label_result.config(text="Result is " + a)
 
-    a = a.replace("^"," power ")
-    a = a.replace("-", " minus ")
-    num1 = num1.replace('^',' power')
-    num1 = num1.replace("-", " minus ")
-    num2 = num2.replace('^',' power ')
-    num2 = num2.replace("-", " minus ")
-    engine = pyttsx.init()
-    engine.setProperty('rate', 120)
-    engine.say(num1+" plus "+num2+'='+a)
-    engine.runAndWait()
+     a = a.replace("^"," power ")
+     a = a.replace("-", " minus ")
+     num1 = num1.replace('^',' power')
+     num1 = num1.replace("-", " minus ")
+     num2 = num2.replace('^',' power ')
+     num2 = num2.replace("-", " minus ")
+     engine = pyttsx.init()
+     engine.setProperty('rate', 120)
+     engine.say(num1+" plus "+num2+'='+a)
+     engine.runAndWait()
 
 
 #Substract Equation
@@ -748,36 +776,44 @@ def call_result_Dif(label_result, n1, n2):
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "-"
-    result = ProsscingTheEqations(num1)
-    result2 = ProsscingTheEqations(num2)
-    result = contact(result)
-    result2 = contact(result2)
-    #print(result+result2)
-    res = calc_diff(result,result2)
-    #print(x)
-    a = res
-    a = display(a)
-    a = str(a)
-    FileSearch(num1, num2, Generate, a)
-    if Check == True:
+
+    Ch1= Erorr(num1)
+    Ch2 =Erorr(num2)
+    if Ch1==True or Ch2==True:
+        tkinter.messagebox.showinfo("Erorr", "Invalid Input")
+        return
+    else:
+
+     result = ProsscingTheEqations(num1)
+     result2 = ProsscingTheEqations(num2)
+     result = contact(result)
+     result2 = contact(result2)
+     #print(result+result2)
+     res = calc_diff(result,result2)
+     #print(x)
+     a = res
+     a = display(a)
+     a = str(a)
+     FileSearch(num1, num2, Generate, a)
+     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
         label_result.config(text="Result is " + a)
 
-    elif Check == False:
+     elif Check == False:
         # prevernting The Re-Writing
         fileworking(num1, num2, Generate,a)
 
         label_result.config(text="Result is " + a)
-    a = a.replace("^"," power ")
-    a = a.replace("-", " minus ")
-    num1 = num1.replace('^',' power')
-    num1 = num1.replace("-", " minus ")
-    num2 = num2.replace('^',' power ')
-    num2 = num2.replace("-", " minus ")
-    engine = pyttsx.init()
-    engine.setProperty('rate', 120)
-    engine.say(num1+" munis "+num2+'='+a)
-    engine.runAndWait()
+     a = a.replace("^"," power ")
+     a = a.replace("-", " minus ")
+     num1 = num1.replace('^',' power')
+     num1 = num1.replace("-", " minus ")
+     num2 = num2.replace('^',' power ')
+     num2 = num2.replace("-", " minus ")
+     engine = pyttsx.init()
+     engine.setProperty('rate', 120)
+     engine.say(num1+" munis "+num2+'='+a)
+     engine.runAndWait()
 
 
 #Multipling Equations
@@ -877,36 +913,44 @@ def call_result_Muli (Label_result,n1,n2):
     num1 = (n1.get())
     num2 = (n2.get())
     Generate = "*"
-    result = ProsscingTheEqations(num1)
-    result2 = ProsscingTheEqations(num2)
-    #print(result+result2)
-    res = calc_multi(result,result2)
-    #print(x)
-    a = res
-    a = display(a)
-    a = str(a)
-    FileSearch(num1, num2, Generate, a)
-    if Check == True:
+
+    Ch1= Erorr(num1)
+    Ch2 =Erorr(num2)
+    if Ch1==True or Ch2==True:
+        tkinter.messagebox.showinfo("Erorr", "Invalid Input")
+        return
+    else:
+
+     result = ProsscingTheEqations(num1)
+     result2 = ProsscingTheEqations(num2)
+     #print(result+result2)
+     res = calc_multi(result,result2)
+     #print(x)
+     a = res
+     a = display(a)
+     a = str(a)
+     FileSearch(num1, num2, Generate, a)
+     if Check == True:
         a = HatMenElFIle(num1, num2, Generate)
         Label_result.config(text="Result is " + a)
 
-    elif Check == False:
+     elif Check == False:
         # prevernting The Re-Writing
 
         fileworking(num1, num2, Generate, a)
 
         Label_result.config(text="Result is " + a)
 
-    a = a.replace("^"," power ")
-    a = a.replace("-", " minus ")
-    num1 = num1.replace('^',' power')
-    num1 = num1.replace("-", " minus ")
-    num2 = num2.replace('^',' power ')
-    num2 = num2.replace("-", " minus ")
-    engine = pyttsx.init()
-    engine.setProperty('rate', 120)
-    engine.say(num1+" Times "+num2+'='+a)
-    engine.runAndWait()
+     a = a.replace("^"," power ")
+     a = a.replace("-", " minus ")
+     num1 = num1.replace('^',' power')
+     num1 = num1.replace("-", " minus ")
+     num2 = num2.replace('^',' power ')
+     num2 = num2.replace("-", " minus ")
+     engine = pyttsx.init()
+     engine.setProperty('rate', 120)
+     engine.say(num1+" Times "+num2+'='+a)
+     engine.runAndWait()
 
 
 
@@ -987,35 +1031,39 @@ def call_result_Dir1 (Label_result,n1):
     num1 = (n1.get())
     Generate = "D"
     result = ProsscingTheEqations(num1)
-
-    # print(result+result2)
-    res = First_driv(result)
-    # print(x)
-    a = res
-    a = dispalyDriv(a)
-    a = str(a)
-    FileSearch(num1, "0", Generate, a)
-    if Check == True:
+    Ch1= Erorr(num1)
+    if Ch1==True:
+        tkinter.messagebox.showinfo("Erorr", "Invalid Input")
+        return
+    else:
+     # print(result+result2)
+     res = First_driv(result)
+     # print(x)
+     a = res
+     a = dispalyDriv(a)
+     a = str(a)
+     FileSearch(num1, "0", Generate, a)
+     if Check == True:
         a = HatMenElFIle(num1, "0", Generate)
         Label_result.config(text="Result is " + a)
 
-    elif Check == False:
+     elif Check == False:
         # prevernting The Re-Writing
 
         fileworking(num1, "0", Generate, a)
 
         Label_result.config(text="Result is " + a)
 
-    a = a.replace("^"," power ")
-    a = a.replace("-", " minus ")
-    a = a.replace('.', ' Times ')
-    num1 = num1.replace('-'," munis")
-    engine = pyttsx.init()
-    engine.setProperty('rate', 120)
-    if len(a)!=0:
-     engine.say(" drivitive of " + num1 + '=' + a)
-     engine.runAndWait()
-    else:
+     a = a.replace("^"," power ")
+     a = a.replace("-", " minus ")
+     a = a.replace('.', ' Times ')
+     num1 = num1.replace('-'," munis")
+     engine = pyttsx.init()
+     engine.setProperty('rate', 120)
+     if len(a)!=0:
+      engine.say(" drivitive of " + num1 + '=' + a)
+      engine.runAndWait()
+     else:
         engine.say(" drivitive of " + num1 + '=' + "0")
         engine.runAndWait()
 
@@ -1025,35 +1073,39 @@ def call_result_Dir2(Label_result,n2):
     num2 = (n2.get())
     Generate = "D"
     result = ProsscingTheEqations(num2)
-
-    # print(result+result2)
-    res = First_driv(result)
-    # print(x)
-    a = res
-    a = dispalyDriv(a)
-    a = str(a)
-    FileSearch("0", num2, Generate, a)
-    if Check == True:
+    Ch2 =Erorr(num2)
+    if Ch2==True:
+        tkinter.messagebox.showinfo("Erorr", "Invalid Input")
+        return
+    else:
+     # print(result+result2)
+     res = First_driv(result)
+     # print(x)
+     a = res
+     a = dispalyDriv(a)
+     a = str(a)
+     FileSearch("0", num2, Generate, a)
+     if Check == True:
         a = HatMenElFIle("0", num2, Generate)
         Label_result.config(text="Result is " + a)
 
-    elif Check == False:
+     elif Check == False:
         # prevernting The Re-Writing
 
         fileworking("0", num2, Generate, a)
 
         Label_result.config(text="Result is " + a)
 
-    a = a.replace("^"," power ")
-    a = a.replace("-", " minus ")
-    a = a.replace('.', ' Times ')
-    num2 = num2.replace('-'," munis")
-    engine = pyttsx.init()
-    engine.setProperty('rate', 120)
-    if len(a)!=0:
-     engine.say(" drivitive of " + num2 + '=' + a)
-     engine.runAndWait()
-    else:
+     a = a.replace("^"," power ")
+     a = a.replace("-", " minus ")
+     a = a.replace('.', ' Times ')
+     num2 = num2.replace('-'," munis")
+     engine = pyttsx.init()
+     engine.setProperty('rate', 120)
+     if len(a)!=0:
+      engine.say(" drivitive of " + num2 + '=' + a)
+      engine.runAndWait()
+     else:
         engine.say(" drivitive of " + num2 + '=' + "0")
         engine.runAndWait()
 ##Ending of Caculation
@@ -1084,6 +1136,7 @@ labelResult.grid(row=12, column=12)
 App.option_add("*Entry.Font","Arial 14 bold")
 entryNum1 = tk.Entry(App, textvariable=FristEquation,foreground = 'black').grid(row=1, column=12)
 entryNum2 = tk.Entry(App, textvariable=SecondEquation,foreground = 'black').grid(row=2, column=12)
+
 call_result_sum = partial(call_result_sum, labelResult, FristEquation, SecondEquation)
 
 buttonSum = tk.Button(App,fg="blue", command=call_result_sum,width = 80,height=72,font=(None,10,'bold'),relief='flat',bg='white')
@@ -1108,6 +1161,7 @@ buttonDir1 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir
 buttonDir2 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir2,width = 8,font=("Times New Roman", 9, "bold"),bg='white',relief='groove').grid(row=2, column=13)
 
 buttonClear=tk.Button(App,text='AC',width=3,command=clear).grid(row=16, column=12)
+
 
 # App Runnig
 App.mainloop()
