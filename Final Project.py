@@ -1012,8 +1012,13 @@ def call_result_Dir1 (Label_result,n1):
     num1 = num1.replace('-'," munis")
     engine = pyttsx.init()
     engine.setProperty('rate', 120)
-    engine.say(" drivitive of " + num1 + '=' + a)
-    engine.runAndWait()
+    if len(a)!=0:
+     engine.say(" drivitive of " + num1 + '=' + a)
+     engine.runAndWait()
+    else:
+        engine.say(" drivitive of " + num1 + '=' + "0")
+        engine.runAndWait()
+
 
 def call_result_Dir2(Label_result,n2):
     global Check
@@ -1045,8 +1050,12 @@ def call_result_Dir2(Label_result,n2):
     num2 = num2.replace('-'," munis")
     engine = pyttsx.init()
     engine.setProperty('rate', 120)
-    engine.say(" drivitive of "+num2+'='+a)
-    engine.runAndWait()
+    if len(a)!=0:
+     engine.say(" drivitive of " + num2 + '=' + a)
+     engine.runAndWait()
+    else:
+        engine.say(" drivitive of " + num2 + '=' + "0")
+        engine.runAndWait()
 ##Ending of Caculation
 
 ######Starting The Gui Code#####
@@ -1100,15 +1109,5 @@ buttonDir2 = tk.Button(App,fg="black", text="Drivative", command=call_result_Dir
 
 buttonClear=tk.Button(App,text='AC',width=3,command=clear).grid(row=16, column=12)
 
-#def Take(sttr):
-
-#    x = sttr
-#    print(x)
-#    engine = pyttsx.init()
-#    engine.say(x)
-#    engine.runAndWait()
-
-#Take = partial(Take,Say)
-#button = tk.Button(App,text = "Sound",command = Take,width = 2).grid(row = 17,column = 12)
 # App Runnig
 App.mainloop()
