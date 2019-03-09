@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox
-import pyttsx
+#import pyttsx
 from functools import partial
 
 #####Working With File#######
@@ -692,7 +692,7 @@ def call_result_sum(label_result, n1, n2):
         fileworking(num1, num2, Generate, a)
 
         label_result.config(text="Result is " + a)
-
+'''
      a = a.replace("^"," power ")
      a = a.replace("-", " minus ")
      num1 = num1.replace('^',' power')
@@ -703,7 +703,7 @@ def call_result_sum(label_result, n1, n2):
      engine.setProperty('rate', 120)
      engine.say("The Sum of"+num1+" plus "+num2+'='+a)
      engine.runAndWait()
-
+'''
 
 #Substract Equation
 def calc_diff(MonoElements,MonoElements2):
@@ -810,6 +810,7 @@ def call_result_Dif(label_result, n1, n2):
         fileworking(num1, num2, Generate,a)
 
         label_result.config(text="Result is " + a)
+    '''
      a = a.replace("^"," power ")
      a = a.replace("-", " minus ")
      num1 = num1.replace('^',' power')
@@ -820,7 +821,7 @@ def call_result_Dif(label_result, n1, n2):
      engine.setProperty('rate', 120)
      engine.say("The Difference of"+num1+" minus "+num2+'='+a)
      engine.runAndWait()
-
+    '''
 
 #Multipling Equations
 def calc_multi(eq1, eq2):
@@ -946,7 +947,7 @@ def call_result_Muli (Label_result,n1,n2):
         fileworking(num1, num2, Generate, a)
 
         Label_result.config(text="Result is " + a)
-
+    '''
      a = a.replace("^"," power ")
      a = a.replace("-", " minus ")
      num1 = num1.replace('^',' power')
@@ -957,7 +958,7 @@ def call_result_Muli (Label_result,n1,n2):
      engine.setProperty('rate', 120)
      engine.say("The Multiplication of"+num1+" Times "+num2+'='+a)
      engine.runAndWait()
-
+    '''
 
 
 def First_driv(eq):
@@ -1064,7 +1065,7 @@ def call_result_Dir1 (Label_result,n1):
         fileworking(num1, "0", Generate, a)
 
         Label_result.config(text="Result is " + a)
-
+    '''
     a = a.replace("^"," power ")
     a = a.replace("-", " minus ")
     a = a.replace('.', ' Times ')
@@ -1077,7 +1078,7 @@ def call_result_Dir1 (Label_result,n1):
     else:
         engine.say("The derivative of " + num1 + '=' + "0")
         engine.runAndWait()
-
+    '''
 
 def call_result_Dir2(Label_result,n2):
     global Check
@@ -1109,7 +1110,7 @@ def call_result_Dir2(Label_result,n2):
         fileworking("0", num2, Generate, a)
 
         Label_result.config(text="Result is " + a)
-
+    '''
     a = a.replace("^"," power ")
     a = a.replace("-", " minus ")
     a = a.replace('.', ' Times ')
@@ -1122,7 +1123,7 @@ def call_result_Dir2(Label_result,n2):
     else:
         engine.say("The derivative of " + num2 + '=' + "0")
         engine.runAndWait()
-
+    '''
 
 
 def find_lower(EquationToBePrccesed):
@@ -1248,7 +1249,7 @@ def call_result_Int1(Label_result,n1):
         fileworking(num1, "0", Generate, a)
 
         Label_result.config(text="Result is " + a)
-
+    '''
     a = a.replace("^"," power ")
     a = a.replace("-", " minus ")
     a = a.replace('.', ' Times ')
@@ -1261,7 +1262,7 @@ def call_result_Int1(Label_result,n1):
     else:
         engine.say("The Integration of " + num1 + '=' + "0")
         engine.runAndWait()
-
+    '''
 
 def call_result_Int2(Label_result,n2):
     global Check
@@ -1292,7 +1293,7 @@ def call_result_Int2(Label_result,n2):
         fileworking("0", num2, Generate, a)
 
         Label_result.config(text="Result is " + a)
-
+    '''
     a = a.replace("^"," power ")
     a = a.replace("-", " minus ")
     a = a.replace('.', ' Times ')
@@ -1305,6 +1306,7 @@ def call_result_Int2(Label_result,n2):
     else:
         engine.say("The Integration of " + num2 + '=' + "0")
         engine.runAndWait()
+    '''
 ##Ending of Caculation
 
 ######Starting The Gui Code#####
